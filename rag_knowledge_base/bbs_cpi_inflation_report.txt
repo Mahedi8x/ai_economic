@@ -1,0 +1,12 @@
+BANGLADESH BUREAU OF STATISTICS (BBS)
+MONTHLY CONSUMER PRICE INDEX (CPI) AND INFLATION ANALYSIS BULLETIN
+NATIONAL ACCOUNTING WING, PARISHANKHYAN BHABAN, AGARGAON, DHAKA.
+
+1. Consumer Basket Classification (Base Year 2021-22 = 100):
+The national CPI basket represents expenditure weights compiled across urban and rural survey points. The Food and Non-Alcoholic Beverages group holds an aggregate weight of 44.82 percent (52.36 percent in rural areas, and 37.28 percent in urban areas), confirming that food price volatility remains the single largest determinant of cost-of-living shocks in Bangladesh.
+
+2. Price Transmission Mechanics:
+Point-to-point food inflation incorporates essential dietary staples: Rice (Coarse, Medium, Fine Miniket/Nazirshail), Pulses (Masur Dal), Edible Oils (Soybean and Palm Oil), Wheat Flour (Atta/Maida), Spices (Onion, Garlic, Ginger), and Vegetables.
+
+3. Import Pass-Through Dynamics:
+Empirical BBS surveys indicate that domestic prices of packaged atta and bottled soybean oil exhibit high elasticity (> 0.85) to global wheat commodity futures (CBOT) and international crude freight benchmarks, passing through to retail shelves within 20 to 35 calendar days.

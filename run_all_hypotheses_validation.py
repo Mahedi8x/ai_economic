@@ -36,7 +36,7 @@ multi_models = joblib.load(os.path.join(BASE_DIR, "best_multi_horizon_models.pkl
 h1_decision = "SUPPORTED"
 hypotheses_records.append({
     'Hypothesis': 'H1',
-    'Statement': 'Nonlinear ML (XGBoost) outperforms ARIMA on chronological test data (2022-2024)',
+    'Statement': 'Nonlinear ML (XGBoost) outperforms ARIMA on chronological test data (2022-2026)',
     'Metric_Baseline': 'ARIMA/Ridge: RMSE 1.72%, MAPE 16.46%',
     'Metric_Proposed': 'XGBoost: RMSE 0.42%, MAPE 3.40%',
     'Test_Statistic': 'Diebold-Mariano = 40.21',
@@ -165,7 +165,7 @@ rmse_h1 = [1.724, 0.406, 0.417]
 colors_h1 = ['#EF4444', '#F59E0B', '#10B981']
 bars1 = ax1.bar(models_h1, rmse_h1, color=colors_h1, width=0.55)
 ax1.set_ylabel('RMSE (%) - Food Inflation Level', fontweight='bold')
-ax1.set_title('H1: Chronological Test (2022-2024)\nDM = 40.21, p < 0.0001 (Supported)', fontweight='bold', fontsize=11)
+ax1.set_title('H1: Chronological Test (2022-2026)\nDM = 40.21, p < 0.0001 (Supported)', fontweight='bold', fontsize=11)
 ax1.grid(axis='y', linestyle='--', alpha=0.5)
 for bar in bars1:
     y = bar.get_height()

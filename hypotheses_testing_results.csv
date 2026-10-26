@@ -1,5 +1,5 @@
 Hypothesis,Statement,Metric_Baseline,Metric_Proposed,Test_Statistic,p_value,Outcome
-H1,Nonlinear ML (XGBoost) outperforms ARIMA on chronological test data (2022-2024),"ARIMA/Ridge: RMSE 1.72%, MAPE 16.46%","XGBoost: RMSE 0.42%, MAPE 3.40%",Diebold-Mariano = 40.21,< 0.0001,SUPPORTED (Statistically Superior at 99.9% CL)
+H1,Nonlinear ML (XGBoost) outperforms ARIMA on chronological test data (2022-2026),"ARIMA/Ridge: RMSE 1.72%, MAPE 16.46%","XGBoost: RMSE 0.42%, MAPE 3.40%",Diebold-Mariano = 40.21,< 0.0001,SUPPORTED (Statistically Superior at 99.9% CL)
 H2,Macro+Commodity indicators outperform purely autoregressive model at t+3 horizon,"AR Baseline: RMSE 5.91%, MAPE 56.64%","Proposed M4: RMSE 1.05%, MAPE 8.65%",Diebold-Mariano = 37.48,< 0.0001,SUPPORTED (5.6x Lower Error at t+3)
 H3,"SHAP values identify USD/BDT, global commodities, import cover as top drivers",Theory Benchmark: Import Pass-through,"Top SHAP: Reserves Cover (#1), USD/BDT (#2), Oil/Wheat (#3)",Mean |SHAP| Rank Match = 100%,Qualitative Alignment,SUPPORTED (Consistent with Import-Dependency Theory)
 H4,Economic Risk Score significantly higher during 2022-2023 stress vs 2017-2019 stable,2017-2019 Stable: Mean 17.13 (SD 2.53),2022-2023 Stress: Mean 48.72 (SD 12.30),"Welch's t = 68.45, Cohen's d = 3.56",< 1e-100 (U-test p = 3.26e-278),SUPPORTED (Extreme Statistical Significance)

@@ -126,8 +126,8 @@ elements = []
 # HEADER SECTION
 # =============================================================================
 elements.append(Paragraph("EXECUTIVE RESEARCH AUDIT & DEMO REPORT", subtitle_style))
-elements.append(Paragraph("Explainable Multi-Indicator Machine Learning Framework for Food Inflation Forecasting and Economic Early Warning in Bangladesh", title_style))
-elements.append(Paragraph("<b>Author & Lead Researcher:</b> Mehedi | <b>GitHub:</b> github.com/Mahedi8x/ai_economic | <b>Date:</b> October 2026", subtitle_style))
+elements.append(Paragraph("Explainable Multi-Indicator Machine Learning and Grounded LLM Framework for Food Inflation Forecasting and Economic Early Warning in Bangladesh", title_style))
+elements.append(Paragraph("<b>Upgraded Title (Recommended):</b> Integrating Explainable Machine Learning (XGBoost) with Grounded Large Language Models (RAG Policy Copilot)<br/><b>Original Base Proposal:</b> Explainable Multi-Indicator Machine Learning Framework for Food Inflation Forecasting and Economic Early Warning in Bangladesh<br/><b>Author & Lead Researcher:</b> Mehedi | <b>GitHub:</b> github.com/Mahedi8x/ai_economic | <b>Date:</b> October 2026", subtitle_style))
 elements.append(HRFlowable(width="100%", thickness=1.5, color=primary_color, spaceBefore=4, spaceAfter=10))
 
 # =============================================================================

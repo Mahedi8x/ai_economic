@@ -1053,14 +1053,17 @@ with tab4:
 # =============================================================================
 with tab5:
     st.subheader("📁 Daily Master Dataset Explorer")
-    st.markdown("Browse, filter, and export the continuous 15-year dataset.")
+    st.markdown("Browse, filter, and export the continuous 16-year dataset (2010–2026).")
 
-    st.dataframe(df.tail(100), width='stretch')
+    df_display = df.tail(100).copy()
+    if pd.api.types.is_datetime64_any_dtype(df_display['Date']):
+        df_display['Date'] = df_display['Date'].dt.strftime('%Y-%m-%d')
+    st.dataframe(df_display, width='stretch')
 
     csv_data = df.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="📥 Download Full Dataset (CSV)",
         data=csv_data,
-        file_name="bangladesh_macro_daily_2010_2024.csv",
+        file_name="bangladesh_macro_daily_2010_2026.csv",
         mime="text/csv"
     )

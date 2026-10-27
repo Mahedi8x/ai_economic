@@ -481,12 +481,13 @@ with tab_comm:
     st.markdown("টিসিবি (TCB) ও কৃষি বিপণন অধিদপ্তরের (DAM) খুচরা বাজারদর এবং ডেডিকেটেড কমোডিটি AI মডেল (XGBoost) দ্বারা চাল, ডাল, তেল, আটা, পেঁয়াজ ও চিনির ৩০ দিন পরের দর পূর্বাভাস।")
 
     COMMODITY_META = {
-        'Price_Rice_Miniket_BDT_kg': {'name': '১. চাল (মিনিকেট / নাজিরশাইল)', 'unit': 'কেজি', 'icon': '🌾'},
-        'Price_Lentil_BDT_kg': {'name': '২. মসুর ডাল (মাঝারি দানা)', 'unit': 'কেজি', 'icon': '🥣'},
-        'Price_Soybean_Oil_BDT_liter': {'name': '৩. সয়াবিন তেল (বোতলজাত)', 'unit': 'লিটার', 'icon': '🛢️'},
-        'Price_Flour_BDT_kg': {'name': '৪. আটা / ময়দা (প্যাকেটজাত)', 'unit': 'কেজি', 'icon': '🍞'},
-        'Price_Onion_BDT_kg': {'name': '৫. পেঁয়াজ (দেশি / আমদানিকৃত)', 'unit': 'কেজি', 'icon': '🧅'},
-        'Price_Sugar_BDT_kg': {'name': '৬. চিনি (খোলা / প্যাকেট)', 'unit': 'কেজি', 'icon': '🍬'}
+        'Price_Rice_Miniket_BDT_kg': {'name': '১. চাল (মিনিকেট)', 'unit': 'কেজি', 'icon': '🌾'},
+        'Price_Rice_Coarse_BDT_kg': {'name': '২. চাল (মোটা / স্বর্ণা)', 'unit': 'কেজি', 'icon': '🍚'},
+        'Price_Lentil_BDT_kg': {'name': '৩. মসুর ডাল', 'unit': 'কেজি', 'icon': '🥣'},
+        'Price_Soybean_Oil_BDT_liter': {'name': '৪. সয়াবিন তেল', 'unit': 'লিটার', 'icon': '🛢️'},
+        'Price_Flour_BDT_kg': {'name': '৫. আটা / ময়দা', 'unit': 'কেজি', 'icon': '🍞'},
+        'Price_Onion_BDT_kg': {'name': '৬. দেশি পেঁয়াজ', 'unit': 'কেজি', 'icon': '🧅'},
+        'Price_Sugar_BDT_kg': {'name': '৭. চিনি (খোলা)', 'unit': 'কেজি', 'icon': '🍬'}
     }
 
     comm_rows = []
@@ -526,7 +527,7 @@ with tab_comm:
 
     # 1. Visual KPI Cards
     st.markdown("#### 📊 আজ ও ৩০ দিন পরের লাইভ প্রাইস কার্ড")
-    kpi_cols = st.columns(6)
+    kpi_cols = st.columns(len(comm_rows)) if comm_rows else []
     for idx, c_data in enumerate(comm_rows):
         with kpi_cols[idx]:
             sign_str = "+" if c_data['delta'] > 0 else ""

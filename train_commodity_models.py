@@ -31,6 +31,7 @@ df = df.sort_values('Date').reset_index(drop=True)
 
 COMMODITIES = {
     'Price_Rice_Miniket_BDT_kg': 'চাল (মিনিকেট / নাজিরশাইল)',
+    'Price_Rice_Coarse_BDT_kg': 'চাল (মোটা / স্বর্ণা / বিআর-১১)',
     'Price_Lentil_BDT_kg': 'মসুর ডাল (মাঝারি দানা)',
     'Price_Soybean_Oil_BDT_liter': 'সয়াবিন তেল (বোতলজাত)',
     'Price_Flour_BDT_kg': 'আটা / ময়দা (প্যাকেটজাত)',
@@ -41,12 +42,11 @@ COMMODITIES = {
 HORIZON = 30
 SPLIT_DATE = '2023-01-01'
 
-# Feature set for commodities
+# Feature set for commodities (Circular stress index removed)
 BASE_FEATURES = [
     'USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'Wheat_Price_USD',
     'Food_Inflation_pct', 'Headline_Inflation_pct',
-    'Oil_Shock_YoY_pct', 'US_Dollar_Index_DXY', 'Foreign_Reserves_USD_Bn',
-    'Daily_Economic_Stress_Index'
+    'Oil_Shock_YoY_pct', 'US_Dollar_Index_DXY', 'Foreign_Reserves_USD_Bn'
 ]
 
 commodity_models = {}

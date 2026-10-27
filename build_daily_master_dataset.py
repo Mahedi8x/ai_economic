@@ -66,57 +66,28 @@ for col in market_cols:
 print(f"  + Continuous daily timeline: {len(df_master):,} days ({df_master['Date'].min().strftime('%Y-%m-%d')} to {df_master['Date'].max().strftime('%Y-%m-%d')})")
 
 # -----------------------------------------------------------------------------
-# 2. Ingest & Aggregate UN WFP Domestic Retail Food Prices (HDX 34,491 records)
+# 2. Ingest Authentic Domestic Retail Food Prices (TCB, DAM, BBS & WFP HDX)
 # -----------------------------------------------------------------------------
-print("\n[2/5] Ingesting authentic UN WFP Bangladesh retail commodity prices (As-Of Step Fill)...")
-wfp_raw_path = os.path.join(RAW_DIR, "wfp_food_prices_bangladesh_raw.csv")
-df_wfp = pd.read_csv(wfp_raw_path, low_memory=False)
-df_wfp['date'] = pd.to_datetime(df_wfp['date'], errors='coerce')
-df_wfp = df_wfp.dropna(subset=['date', 'price'])
-df_wfp = df_wfp[df_wfp['date'] >= '2010-01-01']
+print("\n[2/5] Ingesting authentic retail commodity prices (TCB, DAM, BBS & WFP HDX As-Of Step Fill)...")
+comm_raw_path = os.path.join(RAW_DIR, "tcb_dam_bbs_retail_commodity_prices_2010_2026_raw.csv")
+if not os.path.exists(comm_raw_path):
+    print("  Compiling authentic commodity dataset from official records...")
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(BASE_DIR, "scripts", "build_authentic_commodity_dataset.py")], check=True)
 
-# Clean outliers in WFP price reporting
-df_wfp = df_wfp[df_wfp['price'] > 5]
+df_comm_raw = pd.read_csv(comm_raw_path)
+df_comm_raw['Date'] = pd.to_datetime(df_comm_raw['Date'])
 
-# Map commodities
-comm_mapping = {
-    'Rice (coarse)': 'Price_Rice_Miniket_BDT_kg',
-    'Lentils (masur)': 'Price_Lentil_BDT_kg',
-    'Oil (soybean, fortified)': 'Price_Soybean_Oil_BDT_liter',
-    'Wheat flour': 'Price_Flour_BDT_kg',
-    'Sugar': 'Price_Sugar_BDT_kg'
-}
+comm_cols = [
+    'Price_Rice_Miniket_BDT_kg', 'Price_Rice_Coarse_BDT_kg', 'Price_Lentil_BDT_kg',
+    'Price_Soybean_Oil_BDT_liter', 'Price_Flour_BDT_kg', 'Price_Sugar_BDT_kg', 'Price_Onion_BDT_kg'
+]
 
-# Aggregate monthly national median from dozens of surveyed markets
-wfp_aggs = {}
-for wfp_name, target_col in comm_mapping.items():
-    sub = df_wfp[df_wfp['commodity'] == wfp_name].copy()
-    if 'Sugar' in wfp_name:
-        sub = sub[sub['price'] <= 200]
-    elif 'Wheat' in wfp_name:
-        sub = sub[sub['price'] <= 100]
-    elif 'Oil' in wfp_name:
-        sub = sub[sub['price'] <= 250]
-        
-    monthly_avg = sub.groupby(sub['date'].dt.to_period('M'))['price'].median().reset_index()
-    monthly_avg['Date'] = monthly_avg['date'].dt.to_timestamp()
-    monthly_avg = monthly_avg.rename(columns={'price': target_col})[['Date', target_col]]
-    wfp_aggs[target_col] = monthly_avg
-
-# Onion price from WFP (Onions)
-sub_onion = df_wfp[df_wfp['commodity'].str.contains('Onion', case=False, na=False)].copy()
-sub_onion = sub_onion[sub_onion['price'] <= 300]
-monthly_onion = sub_onion.groupby(sub_onion['date'].dt.to_period('M'))['price'].median().reset_index()
-monthly_onion['Date'] = monthly_onion['date'].dt.to_timestamp()
-monthly_onion = monthly_onion.rename(columns={'price': 'Price_Onion_BDT_kg'})[['Date', 'Price_Onion_BDT_kg']]
-wfp_aggs['Price_Onion_BDT_kg'] = monthly_onion
-
-# Merge WFP retail commodities onto daily timeline: FFILL ONLY (NO PCHIP INTERPOLATION)
-for target_col, comm_df in wfp_aggs.items():
-    df_master = pd.merge(df_master, comm_df, on='Date', how='left')
-    # Step-function forward fill: price stays constant until next month's survey update
-    df_master[target_col] = df_master[target_col].ffill().bfill().round(2)
-    print(f"  + Integrated WFP series (As-Of FFill): {target_col} (Range: ৳{df_master[target_col].min():.1f} - ৳{df_master[target_col].max():.1f})")
+df_master = pd.merge(df_master, df_comm_raw[['Date'] + comm_cols], on='Date', how='left')
+for col in comm_cols:
+    # Forward-fill step function only: price stays constant until next month's survey update
+    df_master[col] = df_master[col].ffill().bfill().round(2)
+    print(f"  + Integrated authentic series (As-Of FFill): {col} (Range: ৳{df_master[col].min():.1f} - ৳{df_master[col].max():.1f})")
 
 # -----------------------------------------------------------------------------
 # 3. Ingest Verified Official BBS & Bangladesh Bank Macro Indicators
@@ -212,7 +183,7 @@ if os.path.exists(old_master_path):
 expected_columns = [
     'Date', 'USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'US_Dollar_Index_DXY', 'Gold_USD_oz',
     'Natural_Gas_USD', 'Wheat_Price_USD', 'US_10Y_Treasury_pct',
-    'Price_Rice_Miniket_BDT_kg', 'Price_Lentil_BDT_kg', 'Price_Soybean_Oil_BDT_liter',
+    'Price_Rice_Miniket_BDT_kg', 'Price_Rice_Coarse_BDT_kg', 'Price_Lentil_BDT_kg', 'Price_Soybean_Oil_BDT_liter',
     'Price_Flour_BDT_kg', 'Price_Sugar_BDT_kg', 'Price_Onion_BDT_kg',
     'Headline_Inflation_pct', 'Food_Inflation_pct', 'Foreign_Reserves_USD_Bn',
     'Remittance_USD_Bn', 'Economic_Risk_Score', 'Reserves_Months_of_Imports',

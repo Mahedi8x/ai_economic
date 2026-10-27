@@ -1,0 +1,18 @@
+Variable_Name,Source_Institution,Official_Portal_URL,Original_Frequency,Unit,Target_or_Feature,Retrieval_Date,Description_and_Methodology
+USD_BDT_Rate,Yahoo Finance / Bangladesh Bank,https://finance.yahoo.com (Ticker: BDT=X),Daily,BDT per USD,Feature,2026-10-27,Interbank exchange rate for Bangladeshi Taka against US Dollar
+Brent_Crude_Oil_USD,Yahoo Finance / ICE Europe,https://finance.yahoo.com (Ticker: BZ=F),Daily,USD per Barrel,Feature,2026-10-27,Global benchmark price for Brent crude oil futures
+Wheat_Price_USD,Yahoo Finance / CBOT,https://finance.yahoo.com (Ticker: ZW=F),Daily,USD cents per Bushel,Feature,2026-10-27,Chicago Board of Trade (CBOT) global wheat commodity futures
+US_Dollar_Index_DXY,Yahoo Finance / ICE,https://finance.yahoo.com (Ticker: DX-Y.NYB),Daily,Index (Base 100),Feature,2026-10-27,Trade-weighted index of US Dollar against major global currencies
+Gold_USD_oz,Yahoo Finance / COMEX,https://finance.yahoo.com (Ticker: GC=F),Daily,USD per Troy Ounce,Feature,2026-10-27,Global gold bullion spot/futures price (safe haven asset)
+Natural_Gas_USD,Yahoo Finance / NYMEX,https://finance.yahoo.com (Ticker: NG=F),Daily,USD per MMBtu,Feature,2026-10-27,Henry Hub natural gas futures (key proxy for fertilizer & transport)
+US_10Y_Treasury_pct,Yahoo Finance / US Treasury,https://finance.yahoo.com (Ticker: ^TNX),Daily,Annual %,Feature,2026-10-27,US 10-Year Benchmark Treasury Yield (global liquidity & cost of capital)
+Food_Inflation_pct,Bangladesh Bureau of Statistics (BBS),https://bbs.gov.bd & https://bb.org.bd,Monthly,Annual YoY %,Primary Target,2026-10-27,Official National Food Consumer Price Index (Food CPI) YoY inflation rate
+Headline_Inflation_pct,Bangladesh Bureau of Statistics (BBS),https://bbs.gov.bd & https://bb.org.bd,Monthly,Annual YoY %,Feature,2026-10-27,Official General National Consumer Price Index (General CPI) YoY inflation rate
+Foreign_Reserves_USD_Bn,Bangladesh Bank (BB),https://www.bb.org.bd,Monthly,Billion USD,Feature,2026-10-27,Gross and BPM6 Foreign Exchange Reserves held by Bangladesh Bank
+Remittance_USD_Bn,Bangladesh Bank (BB),https://www.bb.org.bd,Monthly,Billion USD,Feature,2026-10-27,Total monthly wage earners' remittance inflow channeled through official banking system
+External_Debt_USD_Bn,World Bank WDI / ERD,https://databank.worldbank.org,Annual,Billion USD,Structural Feature,2026-10-27,Total external public and publicly guaranteed external debt stocks
+Reserves_Months_of_Imports,World Bank WDI / BB,https://databank.worldbank.org,Annual,Months,Structural Feature,2026-10-27,Ratio of official foreign exchange reserves to monthly goods & services imports
+Current_Account_Balance_USD_Bn,World Bank WDI / BB,https://databank.worldbank.org,Annual,Billion USD,Structural Feature,2026-10-27,Balance of Payments Current Account Balance (deficit/surplus)
+Broad_Money_M2_pct_GDP,World Bank WDI / BB,https://databank.worldbank.org,Annual,% of GDP,Structural Feature,2026-10-27,Broad money supply (M2) relative to nominal Gross Domestic Product
+GDP_Growth_pct,World Bank WDI / BBS,https://databank.worldbank.org,Annual,Annual %,Structural Feature,2026-10-27,Real Gross Domestic Product annual percentage growth rate
+Daily_Economic_Stress_Index,Engineered Composite,Constructed (see Methodology),High-Frequency Proxy,Score (0 - 100),Composite Signal,2026-10-27,Composite early warning stress index derived from FX volatility reserve cover and shocks

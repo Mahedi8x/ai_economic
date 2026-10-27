@@ -1,0 +1,4 @@
+Horizon,Naive_RMSE,Ridge_RMSE,RF_RMSE,XGB_RMSE,RMSE_Reduction_pct,XGB_MAPE,DM_Statistic,p_value,Empirical_Decision
+t+1 (1 Month Ahead),0.377,0.619,1.464,1.38,-122.94,13.29,-4.28,2e-05,DIRECTIONAL
+t+3 (3 Months Ahead),0.974,3.033,2.57,2.657,12.4,25.83,1.29,0.19669,DIRECTIONAL
+t+6 (6 Months Ahead),1.654,5.913,3.284,3.231,45.35,33.55,1.98,0.04765,CONFIRMED

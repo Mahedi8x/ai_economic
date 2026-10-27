@@ -153,8 +153,7 @@ feature_cols = [
     'Headline_Inflation_pct', 'Food_Inflation_pct', 'Foreign_Reserves_USD_Bn',
     'Remittance_USD_Bn', 'Reserves_Months_of_Imports', 'External_Debt_USD_Bn',
     'Short_Term_Debt_USD_Bn', 'USD_BDT_30D_Volatility', 'USD_BDT_YoY_Return_pct',
-    'Oil_Shock_YoY_pct', 'DXY_30D_MA', 'Reserves_to_Short_Term_Debt_Ratio',
-    'Daily_Economic_Stress_Index'
+    'Oil_Shock_YoY_pct', 'DXY_30D_MA', 'Reserves_to_Short_Term_Debt_Ratio'
 ]
 
 reg_model = joblib.load(REG_MODEL_PATH)
@@ -175,8 +174,7 @@ food_feature_cols = [
     'Wheat_Price_USD', 'Brent_Crude_Oil_USD', 'Natural_Gas_USD', 'Gold_USD_oz',
     'Oil_Shock_YoY_pct', 'USD_BDT_Rate', 'US_Dollar_Index_DXY',
     'Foreign_Reserves_USD_Bn', 'Reserves_Months_of_Imports',
-    'USD_BDT_30D_Volatility', 'Food_Inflation_pct', 'Headline_Inflation_pct',
-    'Daily_Economic_Stress_Index'
+    'USD_BDT_30D_Volatility', 'Food_Inflation_pct', 'Headline_Inflation_pct'
 ]
 current_food_inf = eval_row['Food_Inflation_pct']
 if food_model:

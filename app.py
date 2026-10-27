@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 import datetime
 import joblib
 import pandas as pd
@@ -191,15 +192,37 @@ st.sidebar.markdown("---")
 st.sidebar.markdown(f"**Selected Date:** `{current_row['Date'].strftime('%d %B, %Y')}`")
 st.sidebar.markdown(f"**Dataset Span:** `{min_date.strftime('%Y')} – {max_date.strftime('%Y')}` ({len(df):,} Days)")
 
-# Refresh live market data button
-if st.sidebar.button("🔄 Sync Live Yahoo Finance Data"):
-    with st.spinner("Fetching latest live market prices..."):
+# -----------------------------------------------------------------------------
+# Real-Time Data Pipeline & Automated Live Update Engine
+# -----------------------------------------------------------------------------
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 📡 রিয়েল-টাইম মার্কেট পাইপলাইন")
+st.sidebar.markdown(f"• **ডাটাবেজের সর্বশেষ তারিখ:** `{max_date.strftime('%d %B, %Y')}`")
+st.sidebar.markdown(f"• **সংরক্ষিত দিনসংখ্যা:** `{len(df):,} Days` (২০১০–২০২৬)")
+
+today_date = datetime.date.today()
+if max_date.date() < today_date:
+    st.sidebar.info(f"💡 আজকের ({today_date.strftime('%d %b')}) নতুন মার্কেট দর লাইভ ডাটাবেজে যুক্ত করতে নিচের বাটনে চাপুন:")
+
+if st.sidebar.button("🔄 Sync Live Yahoo Finance Data", type="primary"):
+    with st.spinner("Connecting to Yahoo Finance live markets, updating database & re-forecasting..."):
         try:
-            import yfinance as yf
-            live_data = yf.download(['BDT=X', 'BZ=F', 'DX-Y.NYB', 'GC=F'], period="5d", progress=False)['Close']
-            st.sidebar.success("✓ Live data refreshed!")
+            update_script = os.path.join(BASE_DIR, "daily_update.py")
+            res = subprocess.run(
+                [sys.executable, update_script],
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                errors='replace'
+            )
+            if res.returncode == 0:
+                st.sidebar.success("✓ লাইভ মার্কেট রেট সফলভাবে ডাটাবেজে যুক্ত ও প্রজেকশন আপডেট হয়েছে!")
+                st.cache_data.clear()
+                st.rerun()
+            else:
+                st.sidebar.error(f"Sync issue: {res.stderr[:200]}")
         except Exception as e:
-            st.sidebar.warning(f"Could not reach live API: {e}")
+            st.sidebar.error(f"Execution error: {e}")
 
 st.sidebar.markdown("---")
 st.sidebar.info("""

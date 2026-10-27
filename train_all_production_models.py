@@ -17,7 +17,7 @@ import joblib
 import pandas as pd
 import numpy as np
 from xgboost import XGBRegressor, XGBClassifier
-from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error, f1_score, precision_score, recall_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error, r2_score, f1_score, precision_score, recall_score
 
 # Windows console encoding safeguard
 if sys.platform == "win32":
@@ -186,6 +186,15 @@ COMMODITY_TARGETS = {
     'Price_Sugar_BDT_kg':          ['USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'Wheat_Price_USD', 'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
 }
 
+COMMODITY_NAMES = {
+    'Price_Rice_Miniket_BDT_kg':   'চাল (মিনিকেট)',
+    'Price_Lentil_BDT_kg':         'মসুর ডাল (আমদানি)',
+    'Price_Soybean_Oil_BDT_liter': 'সয়াবিন তেল (বোতল)',
+    'Price_Flour_BDT_kg':          'আটা / ময়দা',
+    'Price_Onion_BDT_kg':          'দেশি পেঁয়াজ',
+    'Price_Sugar_BDT_kg':          'চিনি (খোলা)'
+}
+
 commodity_models = {}
 
 for comm_col, c_feats in COMMODITY_TARGETS.items():
@@ -213,14 +222,22 @@ for comm_col, c_feats in COMMODITY_TARGETS.items():
     preds_delta = m_comm.predict(X_te_c)
     actual_price = clean_c.loc[te_c, comm_col].values + y_te_c.values
     pred_price = clean_c.loc[te_c, comm_col].values + preds_delta
-    mae_c = mean_absolute_error(actual_price, pred_price)
+    mae_c = float(mean_absolute_error(actual_price, pred_price))
+    mape_c = float(mean_absolute_percentage_error(actual_price, pred_price) * 100)
+    r2_c = float(r2_score(actual_price, pred_price))
     
     commodity_models[comm_col] = {
+        'comm_name': COMMODITY_NAMES.get(comm_col, comm_col),
         'model': m_comm,
         'features': all_c_feats,
-        'mae': mae_c
+        'mae': mae_c,
+        'metrics': {
+            'mae_bdt': mae_c,
+            'mape_pct': mape_c,
+            'r2_score': r2_c
+        }
     }
-    print(f"  + {comm_col}: OOS MAE = ৳{mae_c:.2f}/unit")
+    print(f"  + {comm_col}: OOS MAE = ৳{mae_c:.2f}/unit | MAPE = {mape_c:.2f}% | R² = {r2_c:.4f}")
 
 joblib.dump(commodity_models, os.path.join(BASE_DIR, "best_commodity_models.pkl"))
 print("  + Saved: best_commodity_models.pkl")

@@ -1,0 +1,13 @@
+Horizon,Model,MAE,RMSE,MAPE,MASE,DM_Stat_vs_Naive,p_val_vs_Naive
+t+1 Month (30 Days),Naive Persistence,0.590%,0.954%,5.66%,1.000,Reference,Reference
+t+1 Month (30 Days),ARIMA / Ridge Baseline,1.040%,1.293%,10.63%,1.764,-3.13,0.0018
+t+1 Month (30 Days),Random Forest,0.563%,0.939%,5.37%,0.955,0.43,0.6648
+t+1 Month (30 Days),XGBoost (Proposed),0.665%,1.000%,6.36%,1.128,-0.75,0.4510
+t+3 Months (90 Days),Naive Persistence,1.124%,1.454%,11.42%,1.000,Reference,Reference
+t+3 Months (90 Days),ARIMA / Ridge Baseline,2.433%,2.734%,25.08%,2.164,-3.26,0.0011
+t+3 Months (90 Days),Random Forest,1.184%,1.509%,11.99%,1.053,-0.49,0.6270
+t+3 Months (90 Days),XGBoost (Proposed),1.161%,1.582%,11.13%,1.033,-0.52,0.6065
+t+6 Months (180 Days),Naive Persistence,1.657%,2.015%,16.75%,1.000,Reference,Reference
+t+6 Months (180 Days),ARIMA / Ridge Baseline,3.704%,4.049%,37.89%,2.236,-4.12,0.0000
+t+6 Months (180 Days),Random Forest,1.360%,1.726%,13.90%,0.821,1.02,0.3073
+t+6 Months (180 Days),XGBoost (Proposed),1.458%,1.823%,14.54%,0.880,0.86,0.3921

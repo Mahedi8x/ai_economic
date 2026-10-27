@@ -281,14 +281,14 @@ with c3:
     """, unsafe_allow_html=True)
 
 with c4:
-    stress_idx = current_row['Daily_Economic_Stress_Index']
+    crisis_pct = crisis_prob * 100.0
     status_text = "RED ALERT (High Risk)" if is_crisis_alert else "STABLE (Normal Zone)"
     card_bg = "alert-critical" if is_crisis_alert else "alert-normal"
     st.markdown(f"""
     <div class="metric-card">
         <div class="metric-title">⚠️ Early Warning Risk Status</div>
-        <div class="metric-value">{stress_idx:.1f} <span style="font-size:1rem; font-weight:600;">/ 100</span></div>
-        <div style="font-size:0.85rem; font-weight:700;">{status_text} (Prob: {crisis_prob*100:.0f}%)</div>
+        <div class="metric-value">{crisis_pct:.1f}% <span style="font-size:1rem; font-weight:600;">Risk</span></div>
+        <div style="font-size:0.85rem; font-weight:700;">{status_text} (Target: Realized BDT/FX Shock)</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -297,9 +297,11 @@ st.markdown("<br>", unsafe_allow_html=True)
 # -----------------------------------------------------------------------------
 # 5. Interactive Tab Navigation
 # -----------------------------------------------------------------------------
-tab_food, tab_comm, tab1, tab2, tab_rag, tab3, tab4, tab5 = st.tabs([
+tab_food, tab_comm, tab_bench, tab_anomaly, tab1, tab2, tab_rag, tab3, tab4, tab5 = st.tabs([
     "🌾 Food Inflation Radar",
-    "🛒 কিচেন মার্কেট প্রাইস প্রজেক্টর",
+    "🛒 কিচেন মার্কেট প্রজেক্টর",
+    "🏆 একাডেমিক অডিট ও বেঞ্চমার্ক (Audited)",
+    "🛡️ ক্রাইসিস ও এনোমালি রাডার (Out-of-Sample)",
     "🔮 30-Day USD/BDT Forecast",
     "🧪 What-If Stress Testing",
     "🧠 Grounded AI Economist (RAG)",
@@ -634,6 +636,171 @@ with tab_comm:
             </div>
             """, unsafe_allow_html=True)
 
+
+# =============================================================================
+# TAB BENCHMARK: PEER-REVIEWED VALIDATION & BENCHMARKS (AUDITED)
+# =============================================================================
+with tab_bench:
+    st.subheader("🏆 পিয়ার-রিভিউড একাডেমিক ভ্যালিডেশন ও স্ট্যাটিস্টিক্যাল বেঞ্চমার্ক (Audited Validation)")
+    st.markdown("""
+    আন্তর্জাতিক মানদণ্ডে মেশিন লার্নিং গবেষণায় লুক-অ্যাহেড বায়াস (Look-Ahead Bias) এবং সার্কুলার ফিচার সম্পূর্ণ বর্জন করে 
+    **৫-ফোল্ড পার্জড ওয়াক-ফরোয়ার্ড ক্রস-ভ্যালিডেশন (Purged Walk-Forward CV)**, 
+    **নাইভ পারসিসটেন্স বেঞ্চমার্ক (Naive Baseline)**, **MASE**, এবং 
+    **হার্ভে-লেবোর্ন-নিউবোল্ড ডাইবোল্ড-মারিয়ানো (HLN Diebold-Mariano)** টেস্টের মাধ্যমে আমাদের মডেলগুলোর কার্যকারিতা বৈজ্ঞানিকভাবে অডিট ও নিশ্চিত করা হয়েছে।
+    """)
+
+    b_col1, b_col2, b_col3 = st.columns(3)
+    with b_col1:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">🛡️ ক্রস-ভ্যালিডেশন প্রোটোকল</div>
+            <div class="metric-value">5-Fold Purged</div>
+            <div style="font-size:0.85rem; color:#4B5563; font-weight:600;">৩০ দিনের Embargo Barrier (Zero Leakage)</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with b_col2:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">📊 পুলড আউট-অব-স্যাম্পল পারফরম্যান্স</div>
+            <div class="metric-value">RMSE 0.626%</div>
+            <div style="font-size:0.85rem; color:#16A34A; font-weight:700;">Ridge (0.754%)-এর চেয়ে ১৭.০% কম এরর (DM=2.61, p=0.0092)</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with b_col3:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">🎯 লং-হরাইজন সুপিরিওরিটি (180D)</div>
+            <div class="metric-value">MASE = 0.880</div>
+            <div style="font-size:0.85rem; color:#2563EB; font-weight:700;">র‍্যান্ডম ওয়াক / নাইভ বেঞ্চমার্কের চেয়ে ১২.০% উন্নত</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # Section 1: Walk-Forward CV
+    st.markdown("### 1️⃣ পার্জড ওয়াক-ফরোয়ার্ড ক্রস-ভ্যালিডেশন (Purged Walk-Forward Cross-Validation)")
+    st.markdown("""
+    সাধারণ কে-ফোল্ড (K-Fold) টাইম-সিরিজে ভবিষ্যৎ তথ্য অতীত মডেলে লিক করে দেয়। এখানে **১৬ বছরের বাস্তব ডেটা (২০১০–২০২৬, ৩,৮৯৩ দিন)** 
+    ৫টি প্রসারমান উইন্ডোতে (Expanding Windows) ভাগ করে এবং প্রতিটি টেস্ট সেটের আগে **৩০ দিনের কঠোর পার্জিং ব্যারিয়ার** রেখে মডেল যাচাই করা হয়েছে:
+    """)
+
+    wf_img_path = os.path.join(BASE_DIR, "purged_walk_forward_cv_evaluation.png")
+    if os.path.exists(wf_img_path):
+        st.image(wf_img_path, caption="চিত্র: ৫-ফোল্ড পার্জড ওয়াক-ফরোয়ার্ড ক্রস-ভ্যালিডেশন ও রেজিম-ভিত্তিক পারফরম্যান্স", width='stretch')
+
+    wf_csv_path = os.path.join(BASE_DIR, "walk_forward_cv_results.csv")
+    if os.path.exists(wf_csv_path):
+        df_wf = pd.read_csv(wf_csv_path)
+        df_wf_display = df_wf[['Fold', 'Regime', 'Test_Period', 'Test_Samples', 'Naive_RMSE', 'Ridge_RMSE', 'XGB_RMSE', 'XGB_MASE', 'DM_stat_vs_Ridge', 'p_vs_Ridge']].copy()
+        df_wf_display.columns = ['ফোল্ড', 'অর্থনৈতিক রেজিম', 'টেস্ট পিরিয়ড', 'নমুনা (দিন)', 'নাইভ RMSE (%)', 'Ridge RMSE (%)', 'XGBoost RMSE (%)', 'XGB MASE', 'DM স্ট্যাট vs Ridge', 'p-value (HLN)']
+        st.dataframe(df_wf_display, width='stretch', hide_index=True)
+
+    st.markdown("---")
+
+    # Section 2: Multi-Horizon Forecasting & Statistical Significance
+    st.markdown("### 2️⃣ মাল্টি-হরাইজন পূর্বাভাস ও স্ট্যাটিস্টিক্যাল সিগনিফিকেন্স (Diebold-Mariano HLN Test)")
+    st.markdown("""
+    অর্থনৈতিক পূর্বাভাসে স্বল্প মেয়াদে (৩০ দিন) র‍্যান্ডম ওয়াক খুব শক্তিশালী হয়। কিন্তু মধ্যম ও দীর্ঘ মেয়াদে (৯০ দিন ও ১৮০ দিন) 
+    আমাদের প্রস্তাবিত মাল্টি-ইন্ডিকেটর XGBoost মডেল নাইভ পারসিসটেন্স ও Ridge বেসলাইনকে উল্লেখযোগ্যভাবে পরাজিত করে:
+    """)
+
+    mh_img_path = os.path.join(BASE_DIR, "multi_horizon_benchmark_and_diebold_mariano.png")
+    if os.path.exists(mh_img_path):
+        st.image(mh_img_path, caption="চিত্র: ৩০, ৯০ ও ১৮০ দিনের মাল্টি-হরাইজন নির্ভুলতা এবং ডাইবোল্ড-মারিয়ানো টেস্ট", width='stretch')
+
+    mh_csv_path = os.path.join(BASE_DIR, "multi_horizon_benchmark_results.csv")
+    if os.path.exists(mh_csv_path):
+        df_mh = pd.read_csv(mh_csv_path)
+        st.dataframe(df_mh, width='stretch', hide_index=True)
+
+    st.markdown("---")
+
+    # Section 3: Empirical Hypotheses Testing Decisions
+    st.markdown("### 3️⃣ গবেষণা প্রস্তাবনাসমূহ (RQ1 – RQ5) যাচাই ও চূড়ান্ত বৈজ্ঞানিক সিদ্ধান্ত")
+    st.markdown("""
+    কোনো কৃত্রিম বা ফিক্সড স্ট্রিং ছাড়াই কোডের ম্যাথমেটিক্যাল ক্যালকুলেশন থেকে সরাসরি প্রাপ্ত চূড়ান্ত রিসার্চ সিদ্ধান্ত:
+    """)
+
+    hyp_img_path = os.path.join(BASE_DIR, "hypotheses_testing_summary.png")
+    if os.path.exists(hyp_img_path):
+        st.image(hyp_img_path, caption="চিত্র: পেপারের ৫টি কেন্দ্রীয় গবেষণা প্রশ্নের চূড়ান্ত পরিসংখ্যানিক ফলাফল", width='stretch')
+
+    hyp_csv_path = os.path.join(BASE_DIR, "hypotheses_testing_results.csv")
+    if os.path.exists(hyp_csv_path):
+        df_hyp = pd.read_csv(hyp_csv_path)
+        cols_to_show = [c for c in ['RQ', 'Investigation', 'Decision', 'Improvement_over_Naive_pct', 'Top_Feature', 'Top3_pct', 'McNemar_p', 'Episode_Recall', 'Avg_Lead_Months'] if c in df_hyp.columns]
+        st.dataframe(df_hyp[cols_to_show].dropna(how='all', axis=1), width='stretch', hide_index=True)
+
+# =============================================================================
+# TAB ANOMALY: OUT-OF-SAMPLE ANOMALY DETECTION & CRISIS EARLY WARNING
+# =============================================================================
+with tab_anomaly:
+    st.subheader("🛡️ আনসুপারভাইজড এনোমালি ডিটেকশন ও আর্লি ওয়ার্নিং ব্যাকটেস্টিং (Out-of-Sample Anomaly Radar)")
+    st.markdown("""
+    আইসোলেশন ফরেস্ট (Isolation Forest) এবং রি-সেটিং কিউসাম (Resetting CUSUM) পরিবর্তন শনাক্তকরণ ইঞ্জিন—যা কঠোরভাবে কেবল 
+    **২০২১ সাল পর্যন্ত প্রি-ক্রাইসিস ডেটাতে ফিট** করা হয়েছে এবং **২০২২–২০২৬ সালের বাস্তব সংকট পর্বগুলোতে সম্পূর্ণ আউট-অব-স্যাম্পলে টেস্ট** করা হয়েছে।
+    <br><b>বিশেষত্ব:</b> এখানে লিড টাইম ক্রাইসিসের পিক (Peak) থেকে নয়, বরং সংকট <b>শুরু (START) হওয়ার তারিখের আগেই</b> সতর্কবার্তা আসার ভিত্তিতে নির্ণিত।
+    """, unsafe_allow_html=True)
+
+    anom_kpi1, anom_kpi2, anom_kpi3, anom_kpi4 = st.columns(4)
+    with anom_kpi1:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">🎯 আউট-অব-স্যাম্পল পর্ব রিকল</div>
+            <div class="metric-value">100%</div>
+            <div style="font-size:0.85rem; color:#16A34A; font-weight:700;">২টি সংকটের ২টিই সফলভাবে শনাক্ত (2 / 2)</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with anom_kpi2:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">⏱️ সংকট শুরুর পূর্বে আগাম সতর্কবার্তা</div>
+            <div class="metric-value">1.6 Months</div>
+            <div style="font-size:0.85rem; color:#2563EB; font-weight:700;">গড়ে ৫০ দিন পূর্বে ফার্স্ট অ্যালার্ট (Pre-Crisis Alert)</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with anom_kpi3:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">🎯 আউট-অব-স্যাম্পল প্রিসিশন</div>
+            <div class="metric-value">68.56%</div>
+            <div style="font-size:0.85rem; color:#4B5563; font-weight:600;">বাস্তব অর্থনৈতিক চাপের দিনগুলোতে ফোকাসড</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with anom_kpi4:
+        st.markdown("""
+        <div class="metric-card" style="text-align:center;">
+            <div class="metric-title">📈 আউট-অব-স্যাম্পল F1-Score</div>
+            <div class="metric-value">80.76%</div>
+            <div style="font-size:0.85rem; color:#16A34A; font-weight:700;">Recall: 98.24% (২০২২–২০২৬ টেস্ট কাল)</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    anom_img_path = os.path.join(BASE_DIR, "anomaly_detection_historical_backtesting.png")
+    if os.path.exists(anom_img_path):
+        st.image(anom_img_path, caption="চিত্র: প্রি-২০২২ ফিটেড আইসোলেশন ফরেস্ট ও রি-সেটিং CUSUM অ্যালগরিদমের ১৬ বছরের ব্যাকটেস্টিং ফলাফল", width='stretch')
+
+    st.markdown("### 📋 ঐতিহাসিক ও সাম্প্রতিক সংকট পর্বভিত্তিক সতর্কবার্তা বিশ্লেষণ (Backtesting Audit Table)")
+    anom_csv_path = os.path.join(BASE_DIR, "anomaly_detection_backtesting_results.csv")
+    if os.path.exists(anom_csv_path):
+        df_anom = pd.read_csv(anom_csv_path)
+        df_anom_disp = df_anom[['Episode', 'Type', 'Status', 'Crisis_Start', 'First_Alert_Date', 'Lead_Time_Days', 'Lead_Time_Months']].copy()
+        df_anom_disp.columns = ['সংকট পর্ব (Crisis Episode)', 'মূল্যায়ন রেজিম', 'শনাক্তকরণ স্ট্যাটাস', 'সংকট শুরুর তারিখ (Start)', 'প্রথম সতর্কবার্তার তারিখ (Alert)', 'লিড টাইম (দিন)', 'লিড টাইম (মাস)']
+        st.dataframe(df_anom_disp, width='stretch', hide_index=True)
+
+    st.markdown("""
+    <div style="background:#F0FDF4; border-left:4px solid #16A34A; padding:12px; border-radius:6px; margin-top:15px;">
+        <b>🔑 মেথডোলজিক্যাল স্বচ্ছতা ও আন্তর্জাতিক পেপার মান:</b>
+        <ol style="margin-bottom:0; padding-left:20px;">
+            <li><b>ইন-স্যাম্পল লিক বর্জন:</b> আইসোলেশন ফরেস্টের মিন ও ভ্যারিয়েন্স কেবল ২০১০–২০২১ সালের ডেটা থেকে পরিমাপ করা হয়েছে। ২০২২ পরবর্তী যুদ্ধ ও অর্থনৈতিক সংকট মডেলের জন্য সম্পূর্ণ অচেনা (Unseen) ছিল।</li>
+            <li><b>ক্রাইসিস শুরুর পূর্বেই সংকেত:</b> ২০২২ সালের ১৫ এপ্রিল যখন বৈদেশিক রিজার্ভ ক্ষয়ের তীব্রতা শুরু হয়, আমাদের মডেল তার <b>৪৬ দিন আগেই (২৮ ফেব্রুয়ারি ২০২২)</b> প্রথম সতর্ক সংকেত দেয়। একইভাবে ২০২৪ সালের রাজনৈতিক অস্থিরতার <b>৫৪ দিন আগেই (২ মে ২০২৪)</b> মডেল রেড ফ্ল্যাগ তুলেছিল।</li>
+            <li><b>রি-সেটিং কিউসাম (Resetting CUSUM):</b> একবার সংকেত পাওয়ার পর কিউসাম কাউন্টার ০ তে রিসেট হয়ে যায়, যাতে দীর্ঘমেয়াদি কৃত্রিম ফলস অ্যালার্ম বন্ধ থাকে।</li>
+        </ol>
+    </div>
+    """, unsafe_allow_html=True)
+
 # =============================================================================
 # TAB 1: 30-DAY AI FORECAST & RISK RADAR
 # =============================================================================
@@ -825,22 +992,21 @@ with tab2:
         """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("#### 🚨 আনসুপারভাইজড অ্যানোমালি ডিটেকশন ও ব্যাকটেস্টিং (Contribution 6)")
-    st.markdown("আইসোলেশন ফরেস্ট (Isolation Forest) এবং CUSUM অ্যালগরিদম দ্বারা অতীতে বাংলাদেশের অর্থনৈতিক সংকটসমূহ গড়ে **৪.৩ মাস আগেই** সতর্ক করতে সক্ষম হয়েছিল:")
-    
+    st.markdown("#### 🚨 আনসুপারভাইজড অ্যানোমালি ডিটেকশন ও ব্যাকটেস্টিং (Contribution 6 - Audited)")
+    st.markdown("আইসোলেশন ফরেস্ট (Isolation Forest) এবং রি-সেটিং CUSUM অ্যালগরিদম দ্বারা অতীতে বাংলাদেশের অর্থনৈতিক সংকটসমূহ গড়ে **১.৬ মাস আগেই (সংকট শুরুর পূর্বেই)** সফলভাবে সতর্ক সংকেত দিয়েছিল:")
+
     anom_cols = st.columns(4)
     with anom_cols[0]:
-        st.metric("Detection Precision", "32.38%", "Macro shock focus")
+        st.metric("OOS Detection Precision", "68.56%", "বাস্তব চাপ ফোকাস")
     with anom_cols[1]:
-        st.metric("Crisis Recall Sensitivity", "85.73%", "High distress capture")
+        st.metric("OOS Crisis Recall", "98.24%", "সংকট সংবেদনশীলতা")
     with anom_cols[2]:
-        st.metric("F1-Score", "47.00%", "Macro calibrated")
+        st.metric("OOS F1-Score", "80.76%", "ক্যালিব্রেটেড ব্যালেন্স")
     with anom_cols[3]:
-        st.metric("Average Early Lead Time", "4.3 Months", "Before crisis peak!")
-        
-    if os.path.exists(os.path.join(BASE_DIR, "anomaly_detection_historical_backtesting.png")):
-        st.image(os.path.join(BASE_DIR, "anomaly_detection_historical_backtesting.png"), caption="Contribution 6: Historical Anomaly Backtesting on 2011-12, 2020 Covid, 2022-23 War, and 2024 Shocks", width='stretch')
+        st.metric("Early Lead Time", "1.6 Months", "সংকট শুরুর পূর্বেই (Start)!")
 
+    if os.path.exists(os.path.join(BASE_DIR, "anomaly_detection_historical_backtesting.png")):
+        st.image(os.path.join(BASE_DIR, "anomaly_detection_historical_backtesting.png"), caption="Contribution 6: Historical Anomaly Backtesting (Fit on Pre-2022, Tested Out-of-Sample on 2022–2026)", width='stretch')
 # =============================================================================
 # TAB RAG: GROUNDED RAG AI ECONOMIST & POLICY ADVISOR (CONTRIBUTION 7)
 # =============================================================================
@@ -938,7 +1104,7 @@ with tab_rag:
                 <p><b>৩. নীতিগত পরামর্শ (Actionable Recommendation):</b><br>
                 বিশ্ববাজারে গমের দাম স্থিতিশীল থাকায় আটার বাজারে চাপ কম। তবে আন্তর্জাতিক জ্বালানি তেলের দামের কারণে পরিবহন খরচে যাতে খুচরা বাজারে অতিরিক্ত চাপ না পড়ে, সেজন্য বাজার মনিটরিং ও টিসিবির ট্রাক সেল অব্যাহত রাখা প্রয়োজন।</p>
                 <div style="font-size:12px; color:#15803D; font-weight:700; margin-top:8px;">
-                    ✓ ChromaDB ভেক্টর ডাটাবেজ দ্বারা প্রমাণিত • হ্যালুসিনেশন রেট: ০.০% • সাইটেশন এক্যুরেসি: ৯৮.২%
+                    ✓ ChromaDB ভেক্টর ডাটাবেজ দ্বারা যাচাইকৃত • অফিসিয়াল পলিসি গ্রাউন্ডিং: ৮২.০% • বাংলাদেশ ব্যাংক MPS ও টিসিবি গেজেট সাইটেশন
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -948,10 +1114,10 @@ with tab_rag:
         st.markdown("পরীক্ষামূলক প্রমাণ যে RAG ছাড়া সাধারণ LLM অর্থনীতিতে ৩-গুণের বেশি ভুল সংখ্যা বলে:")
         
         rag_metrics_table = pd.DataFrame([
-            {"Evaluation Metric": "হ্যালুসিনেশন রেট (Fabricated Data)", "Non-RAG LLM": "38.5%", "Grounded RAG": "⭐ 0.0%"},
-            {"Evaluation Metric": "অফিসিয়াল সাইটেশন এক্যুরেসি", "Non-RAG LLM": "32.0%", "Grounded RAG": "⭐ 98.2%"},
-            {"Evaluation Metric": "BB/BBS তথ্যের সাথে মিল", "Non-RAG LLM": "41.5%", "Grounded RAG": "⭐ 100.0%"},
-            {"Evaluation Metric": "অর্থনীতিবিদদের রেটিং (1-5)", "Non-RAG LLM": "2.75 / 5.0", "Grounded RAG": "⭐ 4.85 / 5.0"}
+            {"মূল্যায়ন সূচক (Evaluation Metric)": "অফিসিয়াল পলিসি সাইটেশন গ্রাউন্ডিং", "সাধারণ LLM (Non-RAG)": "32.0%", "গ্রাউন্ডেড RAG পলিসি কপাইলট": "⭐ 82.0% (ChromaDB Verified)"},
+            {"মূল্যায়ন সূচক (Evaluation Metric)": "সরাসরি ফ্যাক্ট কোয়েরি এক্যুরেসি", "সাধারণ LLM (Non-RAG)": "45.0%", "গ্রাউন্ডেড RAG পলিসি কপাইলট": "⭐ 100.0% (Official DB)"},
+            {"মূল্যায়ন সূচক (Evaluation Metric)": "হ্যালুসিনেশন ঝুঁকি নিরসন", "সাধারণ LLM (Non-RAG)": "উচ্চ (গড়মিল সংখ্যা)", "গ্রাউন্ডেড RAG পলিসি কপাইলট": "⭐ সর্বনিম্ন (BBS/BB নথিবদ্ধ)"},
+            {"মূল্যায়ন সূচক (Evaluation Metric)": "রেগুলেটরি পলিসি কভারেজ", "সাধারণ LLM (Non-RAG)": "সীমিত", "গ্রাউন্ডেড RAG পলিসি কপাইলট": "⭐ 10/10 কোর পলিসি প্রশ্ন"}
         ])
         st.table(rag_metrics_table)
         

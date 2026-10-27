@@ -23,7 +23,7 @@ REG_MODEL_PATH = os.path.join(BASE_DIR, "best_forecasting_model.pkl")
 CLF_MODEL_PATH = os.path.join(BASE_DIR, "best_crisis_classifier.pkl")
 FOOD_MODEL_PATH = os.path.join(BASE_DIR, "best_food_inflation_model.pkl")
 COMM_MODEL_PATH = os.path.join(BASE_DIR, "best_commodity_models.pkl")
-RAW_COMM_PATH = os.path.join(BASE_DIR, "raw_data", "tcb_dam_retail_commodity_prices_2010_2026_raw.csv")
+RAW_COMM_PATH = os.path.join(BASE_DIR, "data", "raw", "wfp_food_prices_bangladesh_raw.csv")
 
 def log(msg):
     print(msg)

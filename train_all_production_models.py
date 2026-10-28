@@ -178,7 +178,6 @@ print("  + Saved: best_crisis_classifier.pkl")
 print("\n[4/4] Training Dedicated Retail Commodity Models...")
 
 COMMODITY_TARGETS = {
-    'Price_Rice_Miniket_BDT_kg':   ['USD_BDT_Rate', 'Wheat_Price_USD', 'Brent_Crude_Oil_USD', 'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
     'Price_Rice_Coarse_BDT_kg':    ['USD_BDT_Rate', 'Wheat_Price_USD', 'Brent_Crude_Oil_USD', 'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
     'Price_Lentil_BDT_kg':         ['USD_BDT_Rate', 'Wheat_Price_USD', 'Brent_Crude_Oil_USD', 'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
     'Price_Soybean_Oil_BDT_liter': ['USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'Natural_Gas_USD', 'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
@@ -188,7 +187,6 @@ COMMODITY_TARGETS = {
 }
 
 COMMODITY_NAMES = {
-    'Price_Rice_Miniket_BDT_kg':   'চাল (মিনিকেট)',
     'Price_Rice_Coarse_BDT_kg':    'মোটা চাল (স্বর্ণা/বিআর-১১)',
     'Price_Lentil_BDT_kg':         'মসুর ডাল (আমদানি)',
     'Price_Soybean_Oil_BDT_liter': 'সয়াবিন তেল (বোতল)',

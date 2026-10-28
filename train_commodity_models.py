@@ -31,7 +31,6 @@ df['Date'] = pd.to_datetime(df['Date'])
 df = df.sort_values('Date').reset_index(drop=True)
 
 COMMODITIES = {
-    'Price_Rice_Miniket_BDT_kg': 'চাল (মিনিকেট / নাজিরশাইল)',
     'Price_Rice_Coarse_BDT_kg': 'চাল (মোটা / স্বর্ণা / বিআর-১১)',
     'Price_Lentil_BDT_kg': 'মসুর ডাল (মাঝারি দানা)',
     'Price_Soybean_Oil_BDT_liter': 'সয়াবিন তেল (বোতলজাত)',

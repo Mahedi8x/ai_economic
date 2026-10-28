@@ -88,7 +88,7 @@ To ensure 100% empirical integrity and prevent data leakage:
 - Pre-February 2024 observations for Soybean Oil, Sugar, and Onion are kept strictly as `NaN` (unobserved). We avoid synthetic backward-fill (`bfill()`) or artificial flat lines.
 - Dedicated binary indicator columns (`Soybean_Oil_Available`, `Sugar_Available`, `Onion_Available`) explicitly inform tree-based learners of data availability.
 - Gradient boosting decision trees natively evaluate and split on missing values without introducing estimation artifacts into historical training regimes.
-- Coarse Rice (`Price_Rice_Coarse_BDT_kg`) and Miniket Rice (`Price_Rice_Miniket_BDT_kg`) are clearly segregated as separate commodities.
+- The staple rice series analyzed is genuine national median Coarse Rice (`Price_Rice_Coarse_BDT_kg`, Swarna/BR-11), directly sourced from 3,402 UN WFP market survey records without synthetic relabeling.
 
 ### 3.4 Descriptive Statistics
 

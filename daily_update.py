@@ -208,11 +208,11 @@ log("-" * 66)
 
 # Commodity Price Projections Table
 if comm_models:
-    log(" 🛒 30-DAY RETAIL FOOD COMMODITY INTELLIGENCE (TCB & AI MODELS):")
+    log(" 🛒 30-DAY RETAIL FOOD COMMODITY INTELLIGENCE (UN WFP & AI MODELS):")
     log(f"    {'Commodity':<28} | {'Current':<8} | {'Forecast 30D':<12} | {'Change':<8} | {'Status'}")
     log("    " + "-" * 74)
     COMM_NAMES = {
-        'Price_Rice_Miniket_BDT_kg': ('চাল (মিনিকেট)', 'কেজি'),
+        'Price_Rice_Coarse_BDT_kg': ('মোটা চাল (স্বর্ণা)', 'কেজি'),
         'Price_Lentil_BDT_kg': ('মসুর ডাল (মাঝারি)', 'কেজি'),
         'Price_Soybean_Oil_BDT_liter': ('সয়াবিন তেল (বোতল)', 'লিটার'),
         'Price_Flour_BDT_kg': ('আটা / ময়দা', 'কেজি'),

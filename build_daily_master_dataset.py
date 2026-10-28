@@ -173,20 +173,6 @@ for wfp_name, col in commodities.items():
         print(f"    -> Valid rows: {valid_count:,} | Pre-2024 NaN rows: {null_count:,} | Range: ৳{p_min:.1f} - ৳{p_max:.1f}")
         print(f"    -> Added indicator column: {indicator_col} (0 when missing, 1 when available)")
 
-# Medium/Fine Rice (Miniket): Ingest authentic BBS retail price survey for Miniket
-# to keep explicit separation between Rice Coarse (WFP) and Rice Miniket (BBS/TCB)
-comm_raw_path = os.path.join(RAW_DIR, "tcb_dam_bbs_retail_commodity_prices_2010_2026_raw.csv")
-if os.path.exists(comm_raw_path):
-    df_comm_raw = pd.read_csv(comm_raw_path)
-    if 'Price_Rice_Miniket_BDT_kg' in df_comm_raw.columns:
-        df_comm_raw['Date'] = pd.to_datetime(df_comm_raw['Date'])
-        # Map Miniket survey to 15th of the month
-        df_miniket = df_comm_raw[['Date', 'Price_Rice_Miniket_BDT_kg']].copy()
-        df_miniket['Date'] = df_miniket['Date'].apply(lambda d: d.replace(day=15))
-        df_master = pd.merge(df_master, df_miniket, on='Date', how='left')
-        df_master['Price_Rice_Miniket_BDT_kg'] = df_master['Price_Rice_Miniket_BDT_kg'].ffill().bfill().round(2)
-        print(f"  + Authentic series: Price_Rice_Miniket_BDT_kg (Range: ৳{df_master['Price_Rice_Miniket_BDT_kg'].min():.1f} - ৳{df_master['Price_Rice_Miniket_BDT_kg'].max():.1f})")
-
 # -----------------------------------------------------------------------------
 # 4. Ingest Annual Structural Indicators from World Bank WDI
 # -----------------------------------------------------------------------------
@@ -255,7 +241,7 @@ if os.path.exists(old_master_path):
 expected_columns = [
     'Date', 'USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'US_Dollar_Index_DXY', 'Gold_USD_oz',
     'Natural_Gas_USD', 'Wheat_Price_USD', 'US_10Y_Treasury_pct',
-    'Price_Rice_Miniket_BDT_kg', 'Price_Rice_Coarse_BDT_kg', 'Price_Lentil_BDT_kg',
+    'Price_Rice_Coarse_BDT_kg', 'Price_Lentil_BDT_kg',
     'Price_Soybean_Oil_BDT_liter', 'Price_Flour_BDT_kg', 'Price_Sugar_BDT_kg', 'Price_Onion_BDT_kg',
     'Soybean_Oil_Available', 'Sugar_Available', 'Onion_Available',
     'Headline_Inflation_pct', 'Food_Inflation_pct', 'Foreign_Reserves_USD_Bn',

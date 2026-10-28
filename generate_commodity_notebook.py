@@ -60,7 +60,7 @@ df['Date'] = pd.to_datetime(df['Date'])
 df = df.sort_values('Date').reset_index(drop=True)
 
 comm_cols = [
-    'Price_Rice_Miniket_BDT_kg',
+    'Price_Rice_Coarse_BDT_kg',
     'Price_Lentil_BDT_kg',
     'Price_Soybean_Oil_BDT_liter',
     'Price_Flour_BDT_kg',

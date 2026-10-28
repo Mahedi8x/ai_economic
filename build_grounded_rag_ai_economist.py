@@ -179,7 +179,7 @@ else:
 
 # Commodity predictions from actual models
 COMMODITY_FEATURES_MAP = {
-    'Price_Rice_Miniket_BDT_kg':   ['USD_BDT_Rate', 'Wheat_Price_USD', 'Brent_Crude_Oil_USD',
+    'Price_Rice_Coarse_BDT_kg':    ['USD_BDT_Rate', 'Wheat_Price_USD', 'Brent_Crude_Oil_USD',
                                      'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
     'Price_Lentil_BDT_kg':         ['USD_BDT_Rate', 'Wheat_Price_USD', 'Brent_Crude_Oil_USD',
                                      'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
@@ -193,7 +193,7 @@ COMMODITY_FEATURES_MAP = {
                                      'Food_Inflation_pct', 'Oil_Shock_YoY_pct'],
 }
 COMMODITY_LABELS = {
-    'Price_Rice_Miniket_BDT_kg':   'Rice',
+    'Price_Rice_Coarse_BDT_kg':    'Rice (Coarse)',
     'Price_Lentil_BDT_kg':         'Lentil',
     'Price_Soybean_Oil_BDT_liter': 'Oil',
     'Price_Flour_BDT_kg':          'Flour',

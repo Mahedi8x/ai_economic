@@ -478,16 +478,15 @@ with tab_food:
 # =============================================================================
 with tab_comm:
     st.subheader("🛒 নিত্যপ্রয়োজনীয় বাজারদর ও ৩০ দিনের AI প্রজেক্টর (Retail Commodity Price Radar)")
-    st.markdown("টিসিবি (TCB) ও কৃষি বিপণন অধিদপ্তরের (DAM) খুচরা বাজারদর এবং ডেডিকেটেড কমোডিটি AI মডেল (XGBoost) দ্বারা চাল, ডাল, তেল, আটা, পেঁয়াজ ও চিনির ৩০ দিন পরের দর পূর্বাভাস।")
+    st.markdown("জাতিসংঘ বিশ্ব খাদ্য কর্মসূচি (UN WFP / HDX) খুচরা বাজার জরিপ এবং ডেডিকেটেড কমোডিটি AI মডেল (XGBoost) দ্বারা চাল, ডাল, তেল, আটা, পেঁয়াজ ও চিনির ৩০ দিন পরের দর পূর্বাভাস।")
 
     COMMODITY_META = {
-        'Price_Rice_Miniket_BDT_kg': {'name': '১. চাল (মিনিকেট)', 'unit': 'কেজি', 'icon': '🌾'},
-        'Price_Rice_Coarse_BDT_kg': {'name': '২. চাল (মোটা / স্বর্ণা)', 'unit': 'কেজি', 'icon': '🍚'},
-        'Price_Lentil_BDT_kg': {'name': '৩. মসুর ডাল', 'unit': 'কেজি', 'icon': '🥣'},
-        'Price_Soybean_Oil_BDT_liter': {'name': '৪. সয়াবিন তেল', 'unit': 'লিটার', 'icon': '🛢️'},
-        'Price_Flour_BDT_kg': {'name': '৫. আটা / ময়দা', 'unit': 'কেজি', 'icon': '🍞'},
-        'Price_Onion_BDT_kg': {'name': '৬. দেশি পেঁয়াজ', 'unit': 'কেজি', 'icon': '🧅'},
-        'Price_Sugar_BDT_kg': {'name': '৭. চিনি (খোলা)', 'unit': 'কেজি', 'icon': '🍬'}
+        'Price_Rice_Coarse_BDT_kg': {'name': '১. চাল (মোটা / স্বর্ণা)', 'unit': 'কেজি', 'icon': '🍚'},
+        'Price_Lentil_BDT_kg': {'name': '২. মসুর ডাল', 'unit': 'কেজি', 'icon': '🥣'},
+        'Price_Soybean_Oil_BDT_liter': {'name': '৩. সয়াবিন তেল', 'unit': 'লিটার', 'icon': '🛢️'},
+        'Price_Flour_BDT_kg': {'name': '৪. আটা / ময়দা', 'unit': 'কেজি', 'icon': '🍞'},
+        'Price_Onion_BDT_kg': {'name': '৫. দেশি পেঁয়াজ', 'unit': 'কেজি', 'icon': '🧅'},
+        'Price_Sugar_BDT_kg': {'name': '৬. চিনি (খোলা)', 'unit': 'কেজি', 'icon': '🍬'}
     }
 
     comm_rows = []

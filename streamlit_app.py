@@ -152,14 +152,15 @@ if df is None or reg_model is None or clf_model is None:
     st.error("⚠️ Error loading models or datasets! Please ensure all files exist in the project directory.")
     st.stop()
 
-FEATURE_COLS = [
+FEATURE_COLS = list(getattr(reg_model, 'feature_names_in_', [
     'USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'US_Dollar_Index_DXY', 'Gold_USD_oz',
     'Natural_Gas_USD', 'Wheat_Price_USD', 'US_10Y_Treasury_pct',
     'Headline_Inflation_pct', 'Food_Inflation_pct', 'Foreign_Reserves_USD_Bn',
     'Remittance_USD_Bn', 'Reserves_Months_of_Imports', 'External_Debt_USD_Bn',
     'Short_Term_Debt_USD_Bn', 'USD_BDT_30D_Volatility', 'USD_BDT_YoY_Return_pct',
-    'Oil_Shock_YoY_pct', 'DXY_30D_MA', 'Reserves_to_Short_Term_Debt_Ratio'
-]
+    'Oil_Shock_YoY_pct', 'DXY_30D_MA', 'Reserves_to_Short_Term_Debt_Ratio',
+    'Daily_Economic_Stress_Index'
+]))
 
 # -----------------------------------------------------------------------------
 # 3. Sidebar Controls
@@ -250,12 +251,13 @@ crisis_prob = clf_model.predict_proba(input_features)[0, 1]
 is_crisis_alert = crisis_prob >= 0.50
 
 # Food Inflation Forecast
-FOOD_FEATURE_COLS = [
+FOOD_FEATURE_COLS = list(getattr(food_model, 'feature_names_in_', [
     'Wheat_Price_USD', 'Brent_Crude_Oil_USD', 'Natural_Gas_USD', 'Gold_USD_oz',
     'Oil_Shock_YoY_pct', 'USD_BDT_Rate', 'US_Dollar_Index_DXY',
     'Foreign_Reserves_USD_Bn', 'Reserves_Months_of_Imports',
-    'USD_BDT_30D_Volatility', 'Food_Inflation_pct', 'Headline_Inflation_pct'
-]
+    'USD_BDT_30D_Volatility', 'Food_Inflation_pct', 'Headline_Inflation_pct',
+    'Daily_Economic_Stress_Index'
+]))
 current_food_inf = current_row['Food_Inflation_pct']
 if food_model:
     food_input = pd.DataFrame([current_row[FOOD_FEATURE_COLS]])

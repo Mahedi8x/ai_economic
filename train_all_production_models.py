@@ -209,8 +209,15 @@ for comm_col, c_feats in COMMODITY_TARGETS.items():
     clean_c = df_c.dropna(subset=[target_delta_col] + c_feats + [comm_col]).reset_index(drop=True)
     all_c_feats = c_feats + [comm_col]
     
-    tr_c = clean_c['Date'] < SPLIT_DATE
-    te_c = clean_c['Date'] >= SPLIT_DATE
+    first_c_date = clean_c['Date'].min()
+    if first_c_date < pd.to_datetime('2020-01-01'):
+        c_split_date = pd.to_datetime(SPLIT_DATE)
+    else:
+        c_split_idx = int(len(clean_c) * 0.75)
+        c_split_date = clean_c.iloc[c_split_idx]['Date']
+        
+    tr_c = clean_c['Date'] < c_split_date
+    te_c = clean_c['Date'] >= c_split_date
     
     X_tr_c, y_tr_c = clean_c.loc[tr_c, all_c_feats], clean_c.loc[tr_c, target_delta_col]
     X_te_c, y_te_c = clean_c.loc[te_c, all_c_feats], clean_c.loc[te_c, target_delta_col]

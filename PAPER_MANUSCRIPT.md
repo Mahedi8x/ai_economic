@@ -68,9 +68,27 @@ We construct a daily macroeconomic panel dataset for Bangladesh covering **Janua
 | Macro Composites | Economic Risk Score, Daily Economic Stress Index (DESI) | Engineered Signals | Derived algorithmically (circulating components strictly non-circular) |
 | Anomaly Signals | Isolation Forest flags, CUSUM score, Ground Truth Crisis | Historical Event Citations | Documented macro stress episodes (IMF / BB reports) |
 
-### 3.3 Data Quality
+### 3.3 Mixed-Frequency Pipeline & Publication-Lag Alignment
 
-The dataset contains **1 missing value** in the 30-day volatility rolling window at the series start — a negligible 0.0004% missingness rate across 233,434 cells. All critical columns are complete. Monthly frequency variables (e.g., CPI, reserves) are forward-filled to daily frequency following standard practice for macroeconomic panel construction (Stock & Watson, 2002). Commodity prices are in USD and converted to BDT terms using contemporaneous daily exchange rates where required.
+We use a mixed-frequency design: daily global market series are aggregated to monthly features; domestic food-price and CPI series are monthly and enter the model only after their publication date. Where a series is unavailable for part of the sample, it is left missing and flagged.
+
+#### Strict Publication Dates (Zero Look-Ahead Lag)
+In real-world policy and econometric nowcasting, models must operate strictly *as-of* the information available on date $t$. To eliminate lookahead bias:
+1. **BBS Consumer Price Index (CPI) & Food Inflation**: Official monthly inflation for reference month $M$ is officially released by the Bangladesh Bureau of Statistics (BBS) around day 10 of month $M+1$. Thus, month $M$'s inflation only enters the daily stream on day 10 of month $M+1$.
+2. **Bangladesh Bank Foreign Exchange Reserves & Remittances**: End-of-month foreign reserves and official remittances are released by Bangladesh Bank around day 7 of month $M+1$, entering the pipeline strictly on day 7 of $M+1$.
+3. **UN World Food Programme (WFP/HDX) Retail Commodity Prices**: Survey records are gathered nationally on the 15th of each month ($YYYY-MM-15$) and enter the daily stream on that date.
+4. **Global Market Data (Yahoo Finance)**: Real-time trading day series ($T+0$), forward-filled across weekends and exchange holidays.
+
+Step-function forward-filling (`ffill()`) operates strictly *from the publication date forward* until the next official release.
+
+#### Missing Data Handling (No Synthetic Backfill)
+In the UN WFP retail survey for Bangladesh (`data/raw/wfp_food_prices_bangladesh_raw.csv`), staple commodities such as Coarse Rice (`Rice (coarse)`), Masur Lentils (`Lentils (masur)`), and Wheat Flour (`Wheat flour`) possess continuous 16-year monthly empirical records (2010–2026). Conversely, fortified soybean oil, sugar, and onion were only incorporated into the UN WFP monitoring framework in February 2024 (25 months). 
+
+To ensure 100% empirical integrity and prevent data leakage:
+- Pre-February 2024 observations for Soybean Oil, Sugar, and Onion are kept strictly as `NaN` (unobserved). We avoid synthetic backward-fill (`bfill()`) or artificial flat lines.
+- Dedicated binary indicator columns (`Soybean_Oil_Available`, `Sugar_Available`, `Onion_Available`) explicitly inform tree-based learners of data availability.
+- Gradient boosting decision trees natively evaluate and split on missing values without introducing estimation artifacts into historical training regimes.
+- Coarse Rice (`Price_Rice_Coarse_BDT_kg`) and Miniket Rice (`Price_Rice_Miniket_BDT_kg`) are clearly segregated as separate commodities.
 
 ### 3.4 Descriptive Statistics
 

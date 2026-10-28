@@ -14,9 +14,14 @@ Food inflation in developing, import-dependent economies like Bangladesh is driv
 
 This repository implements an **explainable, mixed-frequency machine learning framework** for Bangladesh food inflation forecasting and macroeconomic early warning:
 - **Target Variable:** Official National Food Consumer Price Index (Food CPI YoY %) published monthly by the Bangladesh Bureau of Statistics (BBS) — **preserved in its authentic monthly frequency without artificial temporal interpolation**.
-- **High-Frequency Predictors:** Daily global commodity futures (CBOT Wheat, Brent Crude Oil, Natural Gas), currency markets (USD/BDT, US Dollar Index DXY), and bond yields (US 10-Year Treasury) from Yahoo Finance and FRED.
+- **Publication-Lag Aligned Features (Zero Lookahead Bias):** BBS monthly inflation enters on Day 10 of Month M+1; Bangladesh Bank reserves and remittances enter on Day 7 of Month M+1; UN WFP commodity surveys enter on Day 15 of Month M.
+- **High-Frequency Predictors:** Daily global commodity futures (CBOT Wheat, Brent Crude Oil, Natural Gas), currency markets (USD/BDT, US Dollar Index DXY), and bond yields (US 10-Year Treasury) from Yahoo Finance and FRED ($T+0$).
+- **Missing Data Handling (Zero Data Fabrication):** Pre-2024 unobserved periods for commodities (Soybean Oil, Sugar, Onion in UN WFP) are strictly kept as `NaN` (missing) with binary availability flags (`_Available`), rejecting synthetic backfill (`.bfill()`).
 - **Structural Fundamentals:** Monthly foreign exchange reserves (BPM6) and remittances from Bangladesh Bank; annual external debt and import coverage from World Bank WDI.
 - **Forecasting Horizons:** $t+1$ (1 Month), $t+3$ (1 Quarter), and $t+6$ (Half-Year) out-of-sample nowcasting.
+
+> **Methodological Note (Academic Integrity):**  
+> *"We use a mixed-frequency design: daily global market series are aggregated to monthly features; domestic food-price and CPI series are monthly and enter the model only after their publication date. Where a series is unavailable for part of the sample, it is left missing and flagged."*
 
 ---
 

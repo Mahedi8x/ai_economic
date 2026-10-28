@@ -13,10 +13,11 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-print("==================================================================")
+print("=" * 80)
 print(" 🚀 STEP 3: TRAINING DEDICATED COMMODITY AI FORECASTING MODELS")
-print("    Targets: 30-Day Forward Retail Price for 6 Key Commodities")
-print("==================================================================")
+print("    Targets: 30-Day Forward Retail Price for 7 Key Commodities")
+print("    (Peer-Review Compliant: Pure Empirical Data + Adaptive OOS Validation)")
+print("=" * 80)
 
 BASE_DIR = r"C:\ai_economic"
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
@@ -40,9 +41,8 @@ COMMODITIES = {
 }
 
 HORIZON = 30
-SPLIT_DATE = '2023-01-01'
 
-# Feature set for commodities (Circular stress index removed)
+# Leakage-Free Feature Set (Circular stress index removed)
 BASE_FEATURES = [
     'USD_BDT_Rate', 'Brent_Crude_Oil_USD', 'Wheat_Price_USD',
     'Food_Inflation_pct', 'Headline_Inflation_pct',
@@ -53,6 +53,10 @@ commodity_models = {}
 evaluation_results = []
 
 for comm_col, comm_name in COMMODITIES.items():
+    if comm_col not in df.columns:
+        print(f"⚠️ Warning: Column {comm_col} not in dataset. Skipping.")
+        continue
+        
     print(f"\n--- Training Dedicated AI Forecaster for: {comm_name} ({comm_col}) ---")
     
     # 30-Day Forward Target Delta
@@ -60,15 +64,26 @@ for comm_col, comm_name in COMMODITIES.items():
     target_col = f"Target_Delta_30D_{comm_col}"
     df_c[target_col] = df_c[comm_col].shift(-HORIZON) - df_c[comm_col]
     
-    # Clean NaN values
+    # Clean NaN values strictly (drops unobserved historical period for post-2024 commodities)
     df_clean = df_c.dropna(subset=[target_col] + BASE_FEATURES + [comm_col]).reset_index(drop=True)
     
     # Features include base macro indicators + commodity's own current price
     features = BASE_FEATURES + [comm_col]
     
-    # Chronological Split
-    train_mask = df_clean['Date'] < SPLIT_DATE
-    test_mask = df_clean['Date'] >= SPLIT_DATE
+    # Adaptive Out-of-Sample Chronological Split
+    first_obs_date = df_clean['Date'].min()
+    if first_obs_date < pd.to_datetime('2020-01-01'):
+        # 16-Year continuous series: Train 2010-2022, Test 2023-2026
+        split_date = pd.to_datetime('2023-01-01')
+        split_info = "2010–2022 Train | 2023–2026 OOS Test"
+    else:
+        # Recent series (starts Feb 2024): Train first 75%, Test out-of-sample last 25%
+        split_idx = int(len(df_clean) * 0.75)
+        split_date = df_clean.iloc[split_idx]['Date']
+        split_info = f"Train: {first_obs_date.strftime('%Y-%m')} to {split_date.strftime('%Y-%m')} | Test: {split_date.strftime('%Y-%m')} to {df_clean['Date'].max().strftime('%Y-%m')}"
+    
+    train_mask = df_clean['Date'] < split_date
+    test_mask = df_clean['Date'] >= split_date
     
     X_train = df_clean.loc[train_mask, features]
     y_train = df_clean.loc[train_mask, target_col]
@@ -120,6 +135,7 @@ for comm_col, comm_name in COMMODITIES.items():
     evaluation_results.append({
         'Commodity': comm_name,
         'Column': comm_col,
+        'History_Span': f"{first_obs_date.strftime('%Y-%m')} to {df_clean['Date'].max().strftime('%Y-%m')}",
         'Current_Price': round(today_curr_price, 2),
         'Predicted_30D_Price': round(today_forecast_30d, 2),
         'Delta_BDT': round(today_pred_delta, 2),
@@ -129,7 +145,8 @@ for comm_col, comm_name in COMMODITIES.items():
         'Status': status_label
     })
     
-    print(f"  ✓ Train Set: {len(X_train)} days | Test Set: {len(X_test)} days (2023-2026)")
+    print(f"  ✓ Split: {split_info}")
+    print(f"  ✓ Train Set: {len(X_train):,} days | Test Set: {len(X_test):,} days")
     print(f"  ✓ Out-of-Sample MAE: ৳ {mae_level:.2f} | MAPE: {mape_level:.2f}% | R²: {r2_level:.4f}")
     print(f"  🔮 Today: ৳ {today_curr_price:.2f} -> 30-Day Forecast: ৳ {today_forecast_30d:.2f} (Delta: {today_pred_delta:+.2f} ৳) [{status_label}]")
 
@@ -140,8 +157,8 @@ print(f"\n✓ Saved all commodity models to: {models_output_path}")
 
 # Summary Table
 df_eval = pd.DataFrame(evaluation_results)
-print("\n" + "=" * 80)
+print("\n" + "=" * 85)
 print(" 📊 COMMODITY FORECASTING PERFORMANCE & LIVE 30-DAY INTELLIGENCE BULLETIN")
-print("=" * 80)
-print(df_eval[['Commodity', 'Current_Price', 'Predicted_30D_Price', 'Delta_BDT', 'MAE_BDT', 'MAPE_pct', 'Status']].to_string(index=False))
-print("=" * 80)
+print("=" * 85)
+print(df_eval[['Commodity', 'History_Span', 'Current_Price', 'Predicted_30D_Price', 'Delta_BDT', 'MAE_BDT', 'MAPE_pct', 'Status']].to_string(index=False))
+print("=" * 85)

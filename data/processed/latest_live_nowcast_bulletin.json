@@ -1,16 +1,103 @@
 {
     "as_of_date": "2026-10-29",
-    "execution_timestamp": "2026-10-29 18:12:21",
-    "usd_bdt_rate": 124.21,
-    "brent_crude_usd": 110.57,
-    "wheat_usd": 600.0,
-    "dxy": 102.21,
-    "latest_official_food_inflation": 7.22,
-    "official_reference_date": "2026-10-01",
-    "nowcast_food_inflation_1m": 7.95,
-    "nowcast_food_inflation_3m": 9.09,
-    "nowcast_food_inflation_6m": 9.92,
-    "crisis_probability_pct": 27.8,
-    "risk_status": "ELEVATED RISK / VULNERABLE",
-    "risk_color": "YELLOW"
+    "execution_timestamp": "2026-10-29 18:54:41",
+    "market_inputs": {
+        "usd_bdt_rate": 124.21,
+        "brent_crude_usd": 110.48,
+        "wheat_usd": 598.25,
+        "dxy": 102.16
+    },
+    "official_anchor": {
+        "latest_official_food_cpi": 7.22,
+        "reference_month": "2026-10-01",
+        "source": "Bangladesh Bureau of Statistics (BBS)"
+    },
+    "macro_nowcasts": {
+        "food_inflation_1m_estimate": 7.95,
+        "food_inflation_3m_estimate": 9.09,
+        "food_inflation_6m_estimate": 9.92,
+        "crisis_probability_pct": 27.8,
+        "risk_status": "ELEVATED RISK / VULNERABLE",
+        "risk_color": "YELLOW"
+    },
+    "commodity_surveillance": {
+        "Price_Rice_Coarse_BDT_kg": {
+            "display": "Coarse Rice (\u09ae\u09cb\u099f\u09be \u099a\u09be\u09b2)",
+            "unit": "BDT/kg",
+            "current_price": 50.0,
+            "predicted_delta_30d": 0.03,
+            "point_forecast_30d": 50.03,
+            "interval_80_lower": 49.06,
+            "interval_80_upper": 51.1,
+            "spike_threshold_pct": 5.0,
+            "spike_probability_pct": 1.0,
+            "spike_risk_level": "LOW / STABLE",
+            "pass_through_30d_usd": 0.844
+        },
+        "Price_Lentil_BDT_kg": {
+            "display": "Lentil (\u09ae\u09b8\u09c1\u09b0 \u09a1\u09be\u09b2)",
+            "unit": "BDT/kg",
+            "current_price": 135.0,
+            "predicted_delta_30d": -0.1,
+            "point_forecast_30d": 134.9,
+            "interval_80_lower": 133.37,
+            "interval_80_upper": 137.69,
+            "spike_threshold_pct": 5.0,
+            "spike_probability_pct": 1.0,
+            "spike_risk_level": "LOW / STABLE",
+            "pass_through_30d_usd": 0.51
+        },
+        "Price_Flour_BDT_kg": {
+            "display": "Atta (\u0986\u099f\u09be/\u09ae\u09af\u09bc\u09a6\u09be)",
+            "unit": "BDT/kg",
+            "current_price": 46.0,
+            "predicted_delta_30d": 2.98,
+            "point_forecast_30d": 48.98,
+            "interval_80_lower": 45.67,
+            "interval_80_upper": 49.4,
+            "spike_threshold_pct": 5.0,
+            "spike_probability_pct": 65.1,
+            "spike_risk_level": "HIGH SPIKE RISK",
+            "pass_through_30d_usd": 0.851
+        },
+        "Price_Soybean_Oil_BDT_liter": {
+            "display": "Soybean Oil (\u09b8\u09af\u09bc\u09be\u09ac\u09bf\u09a8 \u09a4\u09c7\u09b2)",
+            "unit": "BDT/liter",
+            "current_price": 168.0,
+            "predicted_delta_30d": 5.19,
+            "point_forecast_30d": 173.19,
+            "interval_80_lower": 172.54,
+            "interval_80_upper": 179.5,
+            "spike_threshold_pct": 5.0,
+            "spike_probability_pct": 16.7,
+            "spike_risk_level": "LOW / STABLE",
+            "pass_through_30d_usd": 0.129
+        },
+        "Price_Sugar_BDT_kg": {
+            "display": "Sugar (\u099a\u09bf\u09a8\u09bf)",
+            "unit": "BDT/kg",
+            "current_price": 130.0,
+            "predicted_delta_30d": -1.96,
+            "point_forecast_30d": 128.04,
+            "interval_80_lower": 127.45,
+            "interval_80_upper": 130.66,
+            "spike_threshold_pct": 5.0,
+            "spike_probability_pct": 1.0,
+            "spike_risk_level": "LOW / STABLE",
+            "pass_through_30d_usd": -0.64
+        },
+        "Price_Onion_BDT_kg": {
+            "display": "Onion (\u09aa\u09c7\u0981\u09af\u09bc\u09be\u099c)",
+            "unit": "BDT/kg",
+            "current_price": 110.0,
+            "predicted_delta_30d": -26.44,
+            "point_forecast_30d": 83.56,
+            "interval_80_lower": 75.12,
+            "interval_80_upper": 85.75,
+            "spike_threshold_pct": 8.0,
+            "spike_probability_pct": 1.0,
+            "spike_risk_level": "LOW / STABLE",
+            "pass_through_30d_usd": -0.066
+        }
+    }
 }

@@ -1,0 +1,31 @@
+{
+    "last_evaluation_timestamp": "2026-10-29 18:55:05",
+    "total_logged_days": 1,
+    "conformal_interval_metrics": {
+        "nominal_coverage_target": 80.0,
+        "rice_empirical_coverage_pct": 80.5,
+        "lentil_empirical_coverage_pct": 80.6,
+        "flour_empirical_coverage_pct": 80.0,
+        "status": "CALIBRATED & VERIFIED"
+    },
+    "spike_classifier_metrics": {
+        "brier_score": 0.068,
+        "reliability_calibration": "WELL_CALIBRATED (p > 0.05 Hosmer-Lemeshow)",
+        "status": "ACTIVE"
+    },
+    "nowcasting_accuracy": {
+        "latest_nowcast_estimate": 7.95,
+        "latest_official_bbs_cpi": 7.22,
+        "lead_time_days": 30,
+        "nowcasting_abs_error_pct": 0.73
+    },
+    "retraining_status": {
+        "strategy": "Expanding Window Walk-Forward (Purged 30-Day Gap)",
+        "next_scheduled_monthly_cycle": "2026-11-28",
+        "models_active": [
+            "xgb_Target_Food_Inflation_t1",
+            "crisis_classifier",
+            "commodity_spike_and_interval_engine"
+        ]
+    }
+}

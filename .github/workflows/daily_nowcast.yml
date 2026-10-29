@@ -2,8 +2,8 @@ name: Daily Macroeconomic Nowcasting & Surveillance
 
 on:
   schedule:
-    # Runs everyday at 00:00 UTC (06:00 AM BST / Dhaka Time)
-    - cron: '0 0 * * *'
+    # Runs everyday at 14:00 UTC (08:00 PM BST / Dhaka Time)
+    - cron: '0 14 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI anytime
 
 permissions:

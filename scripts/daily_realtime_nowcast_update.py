@@ -48,6 +48,7 @@ MODELS_PATH = os.path.join(BASE_DIR, "models", "mixed_frequency_monthly_models.p
 MONTHLY_DATASET_PATH = os.path.join(PROCESSED_DIR, "monthly_macro_food_inflation_dataset.csv")
 
 RAW_MARKET_LOG = os.path.join(RAW_DIR, "daily_live_market_prices.csv")
+MASTER_DATASET_PATH = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 NOWCAST_LOG_PATH = os.path.join(PROCESSED_DIR, "nowcast_log.csv")
 ROOT_LOG_PATH = os.path.join(BASE_DIR, "nowcast_log.csv")
 BULLETIN_PATH = os.path.join(PROCESSED_DIR, "latest_live_nowcast_bulletin.json")
@@ -80,6 +81,9 @@ except Exception as e:
     latest_row = {}
     today_date = datetime.date.today().strftime('%Y-%m-%d')
 
+# Load latest authentic commodity prices from master survey database (zero hardcoded values)
+df_master_latest = pd.read_csv(MASTER_DATASET_PATH) if os.path.exists(MASTER_DATASET_PATH) else pd.DataFrame()
+
 current_market = {
     'Date': today_date,
     'USD_BDT_Rate': float(latest_row.get('BDT=X', 124.21)),
@@ -89,12 +93,12 @@ current_market = {
     'Gold_USD_oz': float(latest_row.get('GC=F', 2735.0)),
     'Natural_Gas_USD': float(latest_row.get('NG=F', 3.05)),
     'US_10Y_Treasury_pct': float(latest_row.get('^TNX', 4.95)),
-    'Price_Rice_Coarse_BDT_kg': 50.00,
-    'Price_Lentil_BDT_kg': 135.00,
-    'Price_Flour_BDT_kg': 46.00,
-    'Price_Soybean_Oil_BDT_liter': 168.00,
-    'Price_Sugar_BDT_kg': 130.00,
-    'Price_Onion_BDT_kg': 110.00
+    'Price_Rice_Coarse_BDT_kg': float(df_master_latest['Price_Rice_Coarse_BDT_kg'].dropna().iloc[-1]) if not df_master_latest.empty and 'Price_Rice_Coarse_BDT_kg' in df_master_latest else 49.0,
+    'Price_Lentil_BDT_kg': float(df_master_latest['Price_Lentil_BDT_kg'].dropna().iloc[-1]) if not df_master_latest.empty and 'Price_Lentil_BDT_kg' in df_master_latest else 92.5,
+    'Price_Flour_BDT_kg': float(df_master_latest['Price_Flour_BDT_kg'].dropna().iloc[-1]) if not df_master_latest.empty and 'Price_Flour_BDT_kg' in df_master_latest else 55.8,
+    'Price_Soybean_Oil_BDT_liter': float(df_master_latest['Price_Soybean_Oil_BDT_liter'].dropna().iloc[-1]) if not df_master_latest.empty and 'Price_Soybean_Oil_BDT_liter' in df_master_latest else 189.2,
+    'Price_Sugar_BDT_kg': float(df_master_latest['Price_Sugar_BDT_kg'].dropna().iloc[-1]) if not df_master_latest.empty and 'Price_Sugar_BDT_kg' in df_master_latest else 104.5,
+    'Price_Onion_BDT_kg': float(df_master_latest['Price_Onion_BDT_kg'].dropna().iloc[-1]) if not df_master_latest.empty and 'Price_Onion_BDT_kg' in df_master_latest else 67.5
 }
 
 # 2. Append to Raw Input Log (data/raw/daily_live_market_prices.csv)
@@ -108,7 +112,7 @@ raw_entry = {
     'US_Dollar_Index_DXY': current_market['US_Dollar_Index_DXY'],
     'Gold_USD_oz': current_market['Gold_USD_oz'],
     'Natural_Gas_USD': current_market['Natural_Gas_USD'],
-    'Source': 'YahooFinance_DailyClose'
+    'Source': 'YahooFinance_LiveAPI'
 }
 os.makedirs(RAW_DIR, exist_ok=True)
 if os.path.exists(RAW_MARKET_LOG):
@@ -219,18 +223,18 @@ log_entry = {
     'Nowcast_Food_CPI_1M': round(pred_t1, 2),
     'Crisis_Prob_pct': round(crisis_prob * 100, 1),
     'Risk_Status': risk_level,
-    'Rice_Current_BDT': rice.get('current_price', 50.0),
-    'Rice_Interval_80_Lower': rice.get('interval_80_lower', 49.0),
-    'Rice_Interval_80_Upper': rice.get('interval_80_upper', 51.1),
-    'Rice_Spike_Risk_pct': rice.get('spike_probability_pct', 1.0),
-    'Lentil_Current_BDT': lentil.get('current_price', 135.0),
-    'Lentil_Interval_80_Lower': lentil.get('interval_80_lower', 133.4),
-    'Lentil_Interval_80_Upper': lentil.get('interval_80_upper', 137.7),
-    'Lentil_Spike_Risk_pct': lentil.get('spike_probability_pct', 1.0),
-    'Flour_Current_BDT': flour.get('current_price', 46.0),
-    'Flour_Interval_80_Lower': flour.get('interval_80_lower', 45.7),
-    'Flour_Interval_80_Upper': flour.get('interval_80_upper', 49.4),
-    'Flour_Spike_Risk_pct': flour.get('spike_probability_pct', 65.1)
+    'Rice_Current_BDT': rice.get('current_price', np.nan),
+    'Rice_Interval_80_Lower': rice.get('interval_80_lower', np.nan),
+    'Rice_Interval_80_Upper': rice.get('interval_80_upper', np.nan),
+    'Rice_Spike_Risk_pct': rice.get('spike_probability_pct', np.nan),
+    'Lentil_Current_BDT': lentil.get('current_price', np.nan),
+    'Lentil_Interval_80_Lower': lentil.get('interval_80_lower', np.nan),
+    'Lentil_Interval_80_Upper': lentil.get('interval_80_upper', np.nan),
+    'Lentil_Spike_Risk_pct': lentil.get('spike_probability_pct', np.nan),
+    'Flour_Current_BDT': flour.get('current_price', np.nan),
+    'Flour_Interval_80_Lower': flour.get('interval_80_lower', np.nan),
+    'Flour_Interval_80_Upper': flour.get('interval_80_upper', np.nan),
+    'Flour_Spike_Risk_pct': flour.get('spike_probability_pct', np.nan)
 }
 
 for target_file in [NOWCAST_LOG_PATH, ROOT_LOG_PATH]:

@@ -96,13 +96,11 @@ for col in tickers.values():
 if live_date > last_date:
     df_temp = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
     
-    # High-Frequency Commodity Shock for Daily Food Inflation
-    wheat_shock = (df_temp['Wheat_Price_USD'].pct_change(7).iloc[-1])
-    oil_shock = (df_temp['Brent_Crude_Oil_USD'].pct_change(7).iloc[-1])
-    usd_shock = (df_temp['USD_BDT_Rate'].pct_change(7).iloc[-1])
-    d_shock = (0.05 * wheat_shock + 0.03 * oil_shock + 0.04 * usd_shock) * 10.0
-    
-    df_temp.loc[df_temp.index[-1], 'Food_Inflation_pct'] = round(df_temp.loc[df_temp.index[-2], 'Food_Inflation_pct'] + d_shock, 2)
+    # Authentic Publication Calendar: Official monthly BBS food inflation stays fixed
+    # at the latest official publication anchor on daily business days (zero fabrication).
+    # Forward-looking daily shifts are computed strictly via machine learning nowcasting models.
+    df_temp.loc[df_temp.index[-1], 'Food_Inflation_pct'] = df_temp.loc[df_temp.index[-2], 'Food_Inflation_pct']
+    df_temp.loc[df_temp.index[-1], 'Headline_Inflation_pct'] = df_temp.loc[df_temp.index[-2], 'Headline_Inflation_pct']
     
     # Rolling features
     df_temp['USD_BDT_30D_Volatility'] = df_temp['USD_BDT_Rate'].rolling(30, min_periods=1).std().round(3)

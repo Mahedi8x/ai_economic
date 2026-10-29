@@ -39,6 +39,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import IsolationForest
 import warnings
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
 
 warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
@@ -96,13 +98,13 @@ if os.path.exists('rag_vs_non_rag_evaluation.png'):
 
 nb['cells'] = cells
 
-notebook_path = os.path.join(r"C:\ai_economic", "06_Anomaly_Detection_and_Grounded_RAG_Economist.ipynb")
+notebook_path = os.path.join(BASE_DIR, "06_Anomaly_Detection_and_Grounded_RAG_Economist.ipynb")
 with open(notebook_path, 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 
 print(f"✓ Notebook generated: {notebook_path}")
 print("Executing notebook to pre-render outputs and visualizations...")
-client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': r'C:\ai_economic'}})
+client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': str(BASE_DIR)}})
 client.execute()
 
 with open(notebook_path, 'w', encoding='utf-8') as f:

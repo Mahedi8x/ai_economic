@@ -3,7 +3,7 @@ Clean and polish PAPER_MANUSCRIPT.md for academic journal submission.
 """
 import re
 
-with open(r"C:\ai_economic\PAPER_MANUSCRIPT.md", "r", encoding="utf-8", errors="ignore") as f:
+with open(str(BASE_DIR / "PAPER_MANUSCRIPT.md"), "r", encoding="utf-8", errors="ignore") as f:
     text = f.read()
 
 # Fix common UTF-8 encoding corruptions
@@ -40,7 +40,7 @@ if abs_idx > 0:
 else:
     polished_text = text
 
-with open(r"C:\ai_economic\PAPER_MANUSCRIPT.md", "w", encoding="utf-8") as f:
+with open(str(BASE_DIR / "PAPER_MANUSCRIPT.md"), "w", encoding="utf-8") as f:
     f.write(polished_text)
 
 print("PAPER_MANUSCRIPT.md polished successfully!")

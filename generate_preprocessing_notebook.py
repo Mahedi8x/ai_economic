@@ -50,6 +50,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 import warnings
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
 
 warnings.filterwarnings('ignore')
 
@@ -351,7 +353,7 @@ cells.append(nbf.v4.new_markdown_cell("""## 🏁 পরবর্তী ধাপ
 
 nb['cells'] = cells
 
-notebook_path = os.path.join(r"C:\ai_economic", "02_Preprocessing_and_Feature_Engineering.ipynb")
+notebook_path = os.path.join(BASE_DIR, "02_Preprocessing_and_Feature_Engineering.ipynb")
 with open(notebook_path, 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 

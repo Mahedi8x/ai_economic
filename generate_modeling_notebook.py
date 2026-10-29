@@ -53,6 +53,8 @@ from sklearn.metrics import (
     classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 )
 import warnings
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
 
 warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
@@ -304,14 +306,14 @@ cells.append(nbf.v4.new_markdown_cell("""## 🏆 ফেজ ৩ ফলাফল �
 
 nb['cells'] = cells
 
-notebook_path = os.path.join(r"C:\ai_economic", "03_Model_Training_and_Early_Warning.ipynb")
+notebook_path = os.path.join(BASE_DIR, "03_Model_Training_and_Early_Warning.ipynb")
 with open(notebook_path, 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 
 print(f"✓ Notebook generated: {notebook_path}")
 
 print("Executing notebook to pre-render outputs and visualizations...")
-client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': r'C:\ai_economic'}})
+client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': str(BASE_DIR)}})
 client.execute()
 
 with open(notebook_path, 'w', encoding='utf-8') as f:

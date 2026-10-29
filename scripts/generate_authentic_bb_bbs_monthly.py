@@ -27,7 +27,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-BASE_DIR = r"C:\ai_economic"
+BASE_DIR = BASE_DIR
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
 os.makedirs(RAW_DIR, exist_ok=True)
 

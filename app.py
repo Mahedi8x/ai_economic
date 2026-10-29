@@ -1,5 +1,7 @@
 import os
 import sys
+import warnings
+warnings.filterwarnings('ignore')
 import subprocess
 import datetime
 import joblib

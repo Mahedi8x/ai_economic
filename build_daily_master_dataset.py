@@ -36,7 +36,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-BASE_DIR = r"C:\ai_economic"
+BASE_DIR = BASE_DIR
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
 
 print("=" * 75)
@@ -104,12 +104,16 @@ print(f"  + Mapped {len(macro_cols)} BBS/BB series to publication dates (Zero Lo
 print(f"    - BBS Food Inflation: {df_master['Food_Inflation_pct'].min():.2f}% - {df_master['Food_Inflation_pct'].max():.2f}%")
 print(f"    - BB Foreign Reserves: ${df_master['Foreign_Reserves_USD_Bn'].min():.2f}B - ${df_master['Foreign_Reserves_USD_Bn'].max():.2f}B")
 
-# Economic Risk Score
+# Economic Risk Score (DESI composite — excludes Food_Inflation_pct to avoid
+# circularity with the model target; uses only external macro stress indicators)
+# Components: FX reserve shortfall (primary), USD/BDT depreciation pressure,
+# global oil shock (Brent deviation from 10-yr average ~75 USD), wheat shock.
 df_master['Economic_Risk_Score'] = np.clip(
-    (df_master['Food_Inflation_pct'] * 3.0) +
-    (np.maximum(0, 30.0 - df_master['Foreign_Reserves_USD_Bn']) * 1.5) +
-    (df_master['USD_BDT_Rate'] * 0.25),
-    10.0, 95.0
+    (np.maximum(0, 30.0 - df_master['Foreign_Reserves_USD_Bn']) * 2.5) +  # reserve stress (0-75)
+    (np.maximum(0, df_master['USD_BDT_Rate'] - 84.0) * 0.8) +             # BDT depreciation stress
+    (np.maximum(0, df_master['Brent_Crude_Oil_USD'] - 75.0) * 0.15) +    # oil price stress
+    (np.maximum(0, df_master['Wheat_Price_USD'] - 6.0) * 1.5),            # wheat price stress
+    5.0, 95.0
 ).round(1)
 
 # -----------------------------------------------------------------------------

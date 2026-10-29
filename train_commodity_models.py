@@ -19,7 +19,7 @@ print("    Targets: 30-Day Forward Retail Price for 7 Key Commodities")
 print("    (Peer-Review Compliant: Pure Empirical Data + Adaptive OOS Validation)")
 print("=" * 80)
 
-BASE_DIR = r"C:\ai_economic"
+BASE_DIR = BASE_DIR
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

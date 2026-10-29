@@ -25,7 +25,8 @@ class TestDatasetIntegrity(unittest.TestCase):
 
     def test_file_exists_and_rows(self):
         self.assertTrue(os.path.exists(self.dataset_path), "Master dataset file missing!")
-        self.assertEqual(len(self.df), 6145, f"Expected 6,145 rows, got {len(self.df)}")
+        # Row count grows daily; require at least 6,000 rows (Jan 2010 – present)
+        self.assertGreaterEqual(len(self.df), 6000, f"Expected at least 6,000 rows, got {len(self.df)}")
 
     def test_column_count_and_schema(self):
         self.assertIn("Daily_Economic_Stress_Index", self.df.columns)
@@ -40,7 +41,12 @@ class TestDatasetIntegrity(unittest.TestCase):
         dates = self.df["Date"]
         self.assertTrue(dates.is_monotonic_increasing, "Timeline is not monotonically increasing!")
         self.assertEqual(dates.min().strftime("%Y-%m-%d"), "2010-01-01")
-        self.assertEqual(dates.max().strftime("%Y-%m-%d"), "2026-10-28")
+        # Max date grows daily; just verify it is recent (within last 14 days)
+        import datetime
+        max_date = dates.max().date()
+        today = datetime.date.today()
+        delta = (today - max_date).days
+        self.assertLessEqual(delta, 14, f"Dataset max date {max_date} is more than 14 days old")
 
     def test_core_indicators_zero_nulls(self):
         core_continuous = [

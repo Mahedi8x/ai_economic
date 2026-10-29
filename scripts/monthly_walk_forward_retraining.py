@@ -26,7 +26,7 @@ if sys.platform == "win32":
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if not os.path.exists(os.path.join(BASE_DIR, "models")):
-    BASE_DIR = r"C:\ai_economic"
+    BASE_DIR = BASE_DIR
 
 NOWCAST_LOG_PATH = os.path.join(BASE_DIR, "data", "processed", "nowcast_log.csv")
 EVAL_REPORT_PATH = os.path.join(BASE_DIR, "data", "processed", "realtime_evaluation_report.json")

@@ -52,6 +52,8 @@ from sklearn.ensemble import RandomForestRegressor
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, mean_absolute_percentage_error
 import warnings
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
 
 warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
@@ -306,14 +308,14 @@ cells.append(nbf.v4.new_markdown_cell("""## 🏆 গবেষণা ফলাফ
 
 nb['cells'] = cells
 
-notebook_path = os.path.join(r"C:\ai_economic", "04_Food_Inflation_and_SHAP_Framework.ipynb")
+notebook_path = os.path.join(BASE_DIR, "04_Food_Inflation_and_SHAP_Framework.ipynb")
 with open(notebook_path, 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 
 print(f"✓ Notebook generated: {notebook_path}")
 
 print("Executing notebook to pre-render outputs, compute ablation study, and generate SHAP plots...")
-client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': r'C:\ai_economic'}})
+client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': str(BASE_DIR)}})
 client.execute()
 
 with open(notebook_path, 'w', encoding='utf-8') as f:

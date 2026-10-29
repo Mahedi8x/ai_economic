@@ -14,7 +14,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-pdf_path = r"C:\ai_economic\Bangladesh_Economic_AI_Research_Report.pdf"
+pdf_path = str(BASE_DIR / "Bangladesh_Economic_AI_Research_Report.pdf")
 doc = SimpleDocTemplate(
     pdf_path,
     pagesize=letter,

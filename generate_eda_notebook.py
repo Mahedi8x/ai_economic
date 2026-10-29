@@ -40,6 +40,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
 
 warnings.filterwarnings('ignore')
 
@@ -264,7 +266,7 @@ cells.append(nbf.v4.new_markdown_cell("""## 📌 EDA থেকে মূল প�
 nb['cells'] = cells
 
 # Save notebook
-notebook_path = os.path.join(r"C:\ai_economic", "01_EDA_Macro_Intelligence.ipynb")
+notebook_path = os.path.join(BASE_DIR, "01_EDA_Macro_Intelligence.ipynb")
 with open(notebook_path, 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 

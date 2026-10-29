@@ -42,7 +42,7 @@ print(" [*] CONTRIBUTION 2: MULTI-HORIZON FOOD INFLATION & HLN-HAC STATISTICAL T
 print("     Horizons: t+1 (30D), t+3 (90D), t+6 (180D) | Naive Baseline & MASE")
 print("=" * 80)
 
-BASE_DIR = r"C:\ai_economic"
+BASE_DIR = BASE_DIR
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

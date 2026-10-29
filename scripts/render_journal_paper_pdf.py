@@ -6,7 +6,7 @@ import os
 import subprocess
 import markdown
 
-BASE_DIR = r"C:\ai_economic"
+BASE_DIR = BASE_DIR
 MD_PATH = os.path.join(BASE_DIR, "PAPER_MANUSCRIPT.md")
 HTML_PATH = os.path.join(BASE_DIR, "Bangladesh_Economic_AI_Research_Paper.html")
 PDF_PATH = os.path.join(BASE_DIR, "Bangladesh_Economic_AI_Research_Paper.pdf")

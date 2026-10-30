@@ -88,7 +88,7 @@ def build_extended_abstract_docx(anonymized=False):
         run_auth.font.italic = True
         run_auth.font.size = Pt(9.5)
     else:
-        run_auth = p_author.add_run("Md. Mehedi Hasan\nDepartment of Computer Science & Engineering\nOpen-Source Codebase: https://github.com/Mahedi8x/ai_economic")
+        run_auth = p_author.add_run("Md Mohi Uddin Mahedi, Mst. Mimuna Parvin Mim\nDepartment of Computer Science & Engineering\nOpen-Source Codebase: https://github.com/Mahedi8x/ai_economic")
         run_auth.font.bold = True
         run_auth.font.size = Pt(9.5)
 

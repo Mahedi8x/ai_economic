@@ -26,7 +26,7 @@ def generate_abstract_html(anonymized=False):
         </div>
     """ if anonymized else """
         <div class="author-block">
-            <strong>Md. Mehedi Hasan</strong><br>
+            <strong>Md Mohi Uddin Mahedi<sup>1</sup>, Mst. Mimuna Parvin Mim<sup>2</sup></strong><br>
             <span style="font-size: 8.5pt; color: #475569;">
                 Department of Computer Science and Engineering<br>
                 Open-Source Research Repository: <u>https://github.com/Mahedi8x/ai_economic</u>

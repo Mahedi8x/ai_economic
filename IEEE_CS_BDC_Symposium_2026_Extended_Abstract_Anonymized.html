@@ -6,14 +6,14 @@
     <style>
         @page {
             size: A4;
-            margin: 25.4mm 19.05mm 25.4mm 19.05mm; /* 1.0" top/bottom, 0.75" left/right */
+            margin: 24mm 19mm 24mm 19mm; /* 0.95" top/bottom, 0.75" left/right */
         }
 
         body {
             font-family: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
             color: #0f172a;
-            line-height: 1.34;
-            font-size: 9.2pt;
+            line-height: 1.32;
+            font-size: 9.15pt;
             margin: 0;
             padding: 0;
             background: #ffffff;
@@ -22,11 +22,11 @@
 
         .header {
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
 
         h1.title {
-            font-size: 12.5pt;
+            font-size: 12.2pt;
             font-weight: bold;
             color: #0f172a;
             margin: 0 0 3px 0;
@@ -35,22 +35,22 @@
         }
 
         .conf-badge {
-            font-size: 8.5pt;
+            font-size: 8.3pt;
             font-style: italic;
             color: #475569;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
 
         .author-block {
             text-align: center;
-            margin: 4px 0 6px 0;
+            margin: 3px 0 5px 0;
             font-size: 8.5pt;
         }
 
         .keywords {
-            margin-bottom: 8px;
+            margin-bottom: 7px;
             font-size: 8.8pt;
         }
 
@@ -60,10 +60,10 @@
         }
 
         h2.sec-heading {
-            font-size: 9.8pt;
+            font-size: 9.6pt;
             font-weight: bold;
             color: #1e3a8a;
-            margin-top: 7px;
+            margin-top: 6px;
             margin-bottom: 2px;
             page-break-after: avoid;
         }
@@ -76,7 +76,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 6px 0 2px 0;
+            margin: 5px 0 2px 0;
             font-size: 7.8pt;
             page-break-inside: avoid;
         }
@@ -110,7 +110,7 @@
 
         .ref-item {
             margin-bottom: 2px;
-            font-size: 7.8pt;
+            font-size: 7.6pt;
             line-height: 1.25;
         }
     </style>
@@ -118,8 +118,8 @@
 <body>
 
     <div class="header">
-        <h1 class="title">Explainable Machine Learning and Grounded Policy Retrieval Framework for Food Inflation Forecasting and Economic Early Warning in Bangladesh</h1>
-        <div class="conf-badge">Extended Abstract — IEEE CS BDC Symposium 2026</div>
+        <h1 class="title">Explainable Machine Learning and a Grounded Policy Retrieval Prototype for Food Inflation Forecasting and Economic Early Warning in Bangladesh</h1>
+        <div class="conf-badge">EXTENDED ABSTRACT — IEEE CS BDC SYMPOSIUM 2026</div>
         
         <div class="author-block">
             <strong>Anonymous Author(s) for Double-Blind Peer Review</strong><br>
@@ -131,73 +131,77 @@
     </div>
 
     <div class="keywords">
-        <strong>Keywords—</strong> <em>Food Inflation Nowcasting, Explainable Machine Learning, Economic Early Warning, Conformal Prediction, Policy Information Retrieval.</em>
+        <strong>Keywords—</strong> <em>Food inflation forecasting, Explainable machine learning, Economic early warning, Conformal prediction, Policy retrieval.</em>
     </div>
 
     <h2 class="sec-heading">1. Research Area</h2>
     <p>
-        Applied Machine Learning, Computational Macroeconomics, Empirical Time-Series Nowcasting, and Information Retrieval.
+        Applied machine learning and computational macroeconomics (time-series forecasting). Research question: can gradient-boosted models trained on publication-lag-aligned daily market data and monthly macro indicators forecast Bangladesh's food inflation better than linear and naive-persistence baselines, and are the resulting early-warning signals reliable enough to be useful to policymakers?
     </p>
 
     <h2 class="sec-heading">2. Goals/Objectives</h2>
     <p>
-        This research investigates macroeconomic volatility and staple food price forecasting in developing, import-dependent economies, focusing empirically on Bangladesh. In official surveillance, Consumer Price Index (CPI) and foreign exchange reserve releases from the Bangladesh Bureau of Statistics (BBS) and Bangladesh Bank typically appear around Day 7 to Day 10 of following month (Month M+1). While this represents a modest administrative delay of one to two weeks, rapid international commodity and currency fluctuations during shock regimes create an informational gap for monetary and procurement authorities. The core objective is to evaluate whether non-linear machine learning architectures can extract actionable early signals from high-frequency international markets and domestic macro indicators ahead of official monthly bulletins. Specifically, the study investigates: (i) whether gradient boosting improves short-horizon food inflation nowcasting relative to linear regression and naive persistence baselines; (ii) how empirical conformal prediction behaves when calibrating retail food price uncertainty bands; (iii) whether unsupervised anomaly detection can provide advance warning before systemic macroeconomic distress episodes; and (iv) how policy retrieval pipelines perform when grounding domain economic inquiries on central bank publications.
+        Official food CPI and reserve figures from the Bangladesh Bureau of Statistics (BBS) and Bangladesh Bank appear around Day 7–10 of the following month. This delay is modest, but during shock regimes (currency depreciation, commodity spikes) it leaves monetary and procurement authorities without a timely signal. We therefore test, as an honest benchmark rather than a claim of superiority: (i) whether gradient boosting improves one-month and three-month-ahead food inflation forecasts over linear regression and naive persistence; (ii) how well rolling conformal prediction calibrates uncertainty bands for retail staple prices; (iii) whether unsupervised anomaly detection gives advance warning of macroeconomic stress episodes without excessive false alarms; and (iv) how a policy retrieval pipeline prototype performs on domain queries.
     </p>
 
     <h2 class="sec-heading">3. Methodology</h2>
     <p>
-        The empirical architecture is anchored on a continuous daily macroeconomic panel spanning January 2010 to September 2026 (6,117 daily observations, 41 indicators) combined with an official monthly macroeconomic panel (201 continuous months, zero synthetic interpolation). Institutional release schedules (BBS CPI on Day 10 of M+1, Bangladesh Bank reserves on Day 7 of M+1, WFP retail food price surveys on Day 15 of M) are strictly enforced via step-function forward fills to prevent look-ahead bias, while daily international shocks (Brent crude oil, CBOT wheat futures, US Dollar Index, natural gas, gold) enter contemporaneously. Annual structural indicators from the World Bank (external debt, import coverage ratios) are incorporated on an as-of release basis, though annual step-filling introduces an open look-ahead timing consideration. For food inflation nowcasting, an Extreme Gradient Boosting (XGBoost) model is trained using chronological walk-forward splits and compared against linear Ridge regression, Random Forest, and naive persistence baselines using Harvey-Leybourne-Newbold corrected Diebold-Mariano tests. Feature attributions are extracted via TreeSHAP. For staple retail commodities (coarse rice, lentils, wheat flour), a rolling walk-forward adaptive conformal prediction engine is evaluated over a 730-day calibration window to generate distribution-free 80% nominal coverage intervals. For crisis surveillance, an Isolation Forest is trained exclusively on pre-2022 historical controls and evaluated out-of-sample on 2022–2026 stress regimes with a reset-capable Cumulative Sum (CUSUM) filter. A prototype dense retrieval module (ChromaDB) indexes authentic central bank policy texts.
+        <strong>Data.</strong> A daily panel (January 2010–September 2026, 6,117 observations, 41 indicators) is combined with a monthly panel of official Bangladesh Bank/BBS series (201 months, no interpolation). Release schedules (BBS CPI on Day 10 of M+1, Bangladesh Bank reserves on Day 7 of M+1, WFP retail surveys on Day 15 of M) are enforced by step-function forward fills; daily international series (Brent crude, CBOT wheat, US Dollar Index, natural gas, gold) enter contemporaneously. Known limitation: annual World Bank indicators are step-filled by calendar year and are not lagged to their release dates, which introduces look-ahead bias that we have not yet removed. <strong>Forecasting.</strong> XGBoost [1] is trained on chronological splits (train ≤ 2021, validation 2022–2023, test 2024–2026) and compared with Ridge regression, Random Forest and naive persistence using Harvey-Leybourne-Newbold corrected Diebold-Mariano (DM) tests [3]; feature attributions use TreeSHAP. <strong>Uncertainty.</strong> For coarse rice, lentils and wheat flour, rolling walk-forward conformal prediction (730-day calibration window) targets 80% intervals; time-series dependence means no formal coverage guarantee holds. <strong>Early warning.</strong> An Isolation Forest [2] is fitted only on pre-2022 data, combined with a resetting CUSUM filter, and evaluated out-of-sample (2022–2026) against documented stress episodes. <strong>Retrieval.</strong> A ChromaDB dense-retrieval prototype indexes four policy summaries (Bangladesh Bank, BBS, IMF, TCB).
     </p>
 
     <h2 class="sec-heading">4. Results and Analysis</h2>
     <p>
-        In monthly out-of-sample evaluation (2024–2026, n &asymp; 33 months), XGBoost reduces root mean square error (RMSE) relative to a linear Ridge baseline by 20.0% at the t+1 horizon (1.171% vs. 1.464%) and by 32.5% at the t+3 horizon (1.740% vs. 2.578%), but neither difference is statistically significant at the 5% level (HLN-corrected Diebold-Mariano p = 0.068, 0.058), and XGBoost does not outperform naive persistence (1.160% at t+1) or Random Forest (1.087% at t+1, 1.725% at t+3) as detailed in Table I. In high-frequency daily 30-day trajectory forecasting, XGBoost substantially outperforms Ridge (RMSE 1.158% vs. 2.457%, a 52.9% reduction; DM = 3.74, p &lt; 0.001), yet remains marginally behind naive persistence (1.137%), indicating dominant short-term price stickiness in domestic staple markets. TreeSHAP feature attribution assigns the highest importance to reserve-adequacy indicators (months of imports: 19.3%), remittance inflows (15.9%), and headline inflation persistence (15.4%), while global crude oil (1.4%) and CBOT wheat (1.2%) exhibit minor direct attribution; annual structural indicators among them remain an open look-ahead concern.
+        <strong>Forecasting.</strong> On the monthly test set (2024–2026, n ≈ 33), XGBoost lowers RMSE relative to Ridge by 20.0% at t+1 and 32.5% at t+3, but neither difference is significant at the 5% level (DM p = 0.068, 0.058). XGBoost does not beat naive persistence (t+1: 1.171% vs. 1.160%) or Random Forest (Table I). In daily 30-day-ahead forecasting it clearly beats Ridge (DM = 3.74, p &lt; 0.001) yet stays slightly behind persistence (1.158% vs. 1.137%); because the target is a step-filled monthly series, the effective sample is small and this p-value is optimistic. TreeSHAP ranks reserve adequacy (months of imports, 19.3%), remittances (15.9%) and headline-inflation persistence (15.4%) highest, whereas Brent crude (1.4%) and wheat (1.2%) contribute little; since the top feature is an annual series, this ranking is itself affected by the look-ahead issue above.
     </p>
 
     <table>
         <thead>
             <tr>
-                <th>Forecast Horizon</th>
-                <th>Naive Baseline</th>
-                <th>Linear Ridge</th>
+                <th>Horizon</th>
+                <th>Naive</th>
+                <th>Ridge</th>
                 <th>Random Forest</th>
-                <th>Proposed XGBoost</th>
-                <th>DM Stat vs Ridge (p-val)</th>
+                <th>XGBoost (vs. Ridge)</th>
+                <th>DM vs. Ridge (p)</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>t+1 (1 Month Ahead)</td>
+                <td>t+1 (1 month)</td>
                 <td>1.160%</td>
                 <td>1.464%</td>
-                <td>1.087%</td>
+                <td><u>1.087%</u></td>
                 <td>1.171% (-20.0%)</td>
-                <td>1.82 (p = 0.068)</td>
+                <td>1.82 (0.068)</td>
             </tr>
             <tr>
-                <td>t+3 (3 Months Ahead)</td>
+                <td>t+3 (3 months)</td>
                 <td>1.757%</td>
                 <td>2.578%</td>
-                <td>1.725%</td>
+                <td><u>1.725%</u></td>
                 <td>1.740% (-32.5%)</td>
-                <td>1.90 (p = 0.058)</td>
+                <td>1.90 (0.058)</td>
             </tr>
             <tr>
-                <td>30-Day Forward Daily</td>
-                <td>1.137%</td>
+                <td>30-day daily</td>
+                <td><u>1.137%</u></td>
                 <td>2.457%</td>
                 <td>—</td>
                 <td><strong>1.158% (-52.9%)</strong></td>
-                <td><strong>3.74 (p &lt; 0.001)</strong></td>
+                <td><strong>3.74 (&lt;0.001)</strong></td>
             </tr>
         </tbody>
     </table>
     <div class="table-caption">
-        Table I: Out-of-Sample Forecasting Performance & Diebold-Mariano Tests across Horizons
+        Table I: Out-of-sample RMSE and Diebold-Mariano tests (lowest RMSE per row underlined).
     </div>
 
     <p>
-        In retail price uncertainty estimation, rolling walk-forward conformal prediction achieved 85.1% empirical out-of-sample coverage for coarse rice over 1,366 unseen test days, whereas lentils (74.8%) and flour (75.1%) fell short of the 80% nominal target, highlighting commodity-specific calibration disparities. The unsupervised anomaly detector flagged both out-of-sample economic crisis episodes 80 days (2022 foreign exchange drain) and 90 days (2024 political shock) ahead of onset, but flagged 74.0% of out-of-sample days due to persistent post-2022 macroeconomic disequilibrium, indicating that raw alert frequencies must be coupled with secondary persistence filters before operational deployment. The retrieval module was audited for keyword and semantic coverage, achieving an 82.0% mean grounding score across 10 central bank queries; full LLM generation and hallucination benchmarks have not yet been evaluated. A prototype web dashboard provides interactive scenario exploration.
+        <strong>Uncertainty and early warning.</strong> Over 1,368 out-of-sample days, conformal intervals reached 83.6% empirical coverage for coarse rice but only 76.0% (lentils) and 75.2% (flour) against the 80% target. The anomaly detector flagged both out-of-sample episodes (2022 FX drain, 2024 political shock) 80 and 90 days before onset, but it also flagged 74% of out-of-sample days. Most of these days lie outside the pre-2022 training range (e.g., USD/BDT), and the lead time is bounded by a 90-day search window, so it should be read as a distribution-shift signal. Precision is 56.5% against a 42% crisis-day base rate (F1 0.72 vs. 0.59 for always alarming), so alert-persistence filtering is required before any operational use. <strong>Retrieval.</strong> The prototype reached 82.0% mean keyword coverage on 10 queries over four policy summaries; LLM generation and hallucination have not yet been evaluated, so no grounding claim is made.
+    </p>
+
+    <p>
+        <strong>Open issues.</strong> Calendar-year look-ahead in annual indicators; a short test period (≈33 months) with two crisis episodes; hand-labelled crisis windows; incomplete conformal calibration for lentils and flour; and absence of a generation-level retrieval evaluation. Code and data are released openly; corrected results will be versioned in the repository.
     </p>
 
     <h2 class="sec-heading">5. References</h2>
@@ -208,7 +212,7 @@
         [2] F. T. Liu, K. M. Ting, and Z.-H. Zhou, "Isolation forest," in <em>Proc. 8th IEEE Int. Conf. Data Mining (ICDM)</em>, 2008, pp. 413–422.
     </div>
     <div class="ref-item">
-        [3] F. X. Diebold and R. S. Mariano, "Comparing predictive accuracy," <em>Journal of Business & Economic Statistics</em>, vol. 13, no. 3, pp. 253–263, 1995.
+        [3] F. X. Diebold and R. S. Mariano, "Comparing predictive accuracy," <em>J. Business & Economic Statistics</em>, vol. 13, no. 3, pp. 253–263, 1995.
     </div>
 
 </body>

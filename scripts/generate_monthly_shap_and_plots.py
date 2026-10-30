@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 Generate SHAP Explainability & Publication Plots for Monthly Framework
 ======================================================================
@@ -22,7 +23,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_PATH = os.path.join(BASE_DIR, "data", "processed", "monthly_macro_food_inflation_dataset.csv")
 MODELS_PATH = os.path.join(BASE_DIR, "models", "mixed_frequency_monthly_models.pkl")
 FIGURES_DIR = os.path.join(BASE_DIR, "figures")

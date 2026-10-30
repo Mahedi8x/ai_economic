@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 train_all_production_models.py
 ==============================
@@ -30,7 +31,7 @@ print("=" * 75)
 print(" [*] RETRAINING PRODUCTION AI MODELS (POINT 2 AS-OF FFILL FIX)")
 print("=" * 75)
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

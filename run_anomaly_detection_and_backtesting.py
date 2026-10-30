@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 run_anomaly_detection_and_backtesting.py
 ========================================
@@ -39,7 +40,7 @@ print(" [*] STEP 5: UNSUPERVISED ANOMALY DETECTION (TRAIN-ONLY FIT, OOS EVALUATI
 print("     Isolation Forest + Resetting CUSUM | Lead Time from Crisis START")
 print("=" * 80)
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

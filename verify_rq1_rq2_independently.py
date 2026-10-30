@@ -1,3 +1,4 @@
+from pathlib import Path
 import os
 import sys
 import pandas as pd
@@ -19,7 +20,7 @@ print("==================================================================")
 print(" 🔬 INDEPENDENT DYNAMIC VERIFICATION: RQ1 & RQ2 (ZERO HARDCODING)")
 print("==================================================================")
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

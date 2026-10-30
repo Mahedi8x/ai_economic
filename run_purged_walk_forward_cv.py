@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 run_purged_walk_forward_cv.py
 ==============================
@@ -45,7 +46,7 @@ print(" [*] STEP 4: PURGED WALK-FORWARD CROSS-VALIDATION (30-DAY EMBARGO GAP)")
 print("     5 Expanding Folds | Zero Overlapping Label Contamination | MASE & HLN-DM")
 print("=" * 80)
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

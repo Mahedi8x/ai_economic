@@ -1,3 +1,4 @@
+from pathlib import Path
 import os
 import sys
 import joblib
@@ -19,7 +20,7 @@ print("    Targets: 30-Day Forward Retail Price for 7 Key Commodities")
 print("    (Peer-Review Compliant: Pure Empirical Data + Adaptive OOS Validation)")
 print("=" * 80)
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent
 dataset_path = os.path.join(BASE_DIR, "daily_macro_master_dataset.csv")
 
 if not os.path.exists(dataset_path):

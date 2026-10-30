@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 Rebuild Authentic Daily Macroeconomic Master Dataset
 ====================================================
@@ -36,7 +37,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
 
 print("=" * 75)

@@ -1,6 +1,6 @@
 RQ,Investigation,Naive_RMSE,Ridge_RMSE,XGB_RMSE,XGB_MAPE,MASE_vs_Naive,DM_stat_vs_Naive,p_vs_Naive,DM_stat_vs_Ridge,p_vs_Ridge,Improvement_over_Naive_pct,Decision,30D_RMSE_XGB,90D_RMSE_XGB,180D_RMSE_XGB,30D_MASE,90D_MASE,180D_MASE,30D_p,90D_p,180D_p,Top_Feature,Top1_pct,Top3_pct,Naive_F1,XGB_Precision,XGB_Recall,XGB_F1,McNemar_p,OOS_Precision,OOS_Recall,OOS_F1,Episode_Recall,Avg_Lead_Months
-RQ1 / H1,XGBoost vs Naive Persistence & Ridge (30-Day Food Inflation),0.954%,1.116%,1.037%,7.12%,1.240,-1.43,1.5208e-01,1.62,1.0504e-01,-8.7%,NOT CONFIRMED (p = 0.1521),,,,,,,,,,,,,,,,,,,,,,
-RQ2 / H2,Multi-horizon XGBoost accuracy vs Naive Persistence (30/90/180 days),,,,,,,,,,,NOT CONFIRMED (p = 0.1521),1.037%,1.389%,1.848%,1.240,0.934,0.871,1.5208e-01,4.1689e-01,3.4036e-01,,,,,,,,,,,,,
-RQ3 / H3,Top-3 SHAP feature concentration (leakage-free feature set),,,,,,,,,,,CONFIRMED (top-3 > 40%),,,,,,,,,,Foreign_Reserves_USD_Bn,26.5%,48.8%,,,,,,,,,,
-RQ4 / H4,Realized outcome crisis classification (leakage-free label),,,,,,,,,,,CONFIRMED (p < 0.05),,,,,,,,,,,,,0.000,1.000,0.073,0.136,5.1200e-04,,,,,
-RQ5,Anomaly detection OOS (2022+): IsoForest fit on pre-2022 train data,,,,,,,,,,,"Lead = 1.7 months, recall = 100% (from crisis start, OOS only)",,,,,,,,,,,,,,,,,,0.686,0.982,0.808,2/2,1.7
+RQ1 / H1,XGBoost vs Naive Persistence & Ridge (30-Day Food Inflation),1.137%,2.457%,1.158%,8.15%,1.073,-0.26,7.9193e-01,3.74,1.9283e-04,-1.8%,NOT CONFIRMED (p = 0.7919),,,,,,,,,,,,,,,,,,,,,,
+RQ2 / H2,Multi-horizon XGBoost accuracy vs Naive Persistence (30/90/180 days),,,,,,,,,,,NOT CONFIRMED (p = 0.7919),1.158%,2.407%,2.833%,1.073,1.320,1.085,7.9193e-01,1.5013e-01,5.7800e-01,,,,,,,,,,,,,
+RQ3 / H3,Top-3 SHAP feature concentration (leakage-free feature set),,,,,,,,,,,CONFIRMED (top-3 > 40%),,,,,,,,,,Reserves_Months_of_Imports,19.3%,50.6%,,,,,,,,,,
+RQ4 / H4,Realized outcome crisis classification (leakage-free label),,,,,,,,,,,CONFIRMED (p < 0.05),,,,,,,,,,,,,0.000,0.239,0.291,0.263,4.2188e-15,,,,,
+RQ5,Anomaly detection OOS (2022+): IsoForest fit on pre-2022 train data,,,,,,,,,,,"Lead = 2.8 months, recall = 100% (from crisis start, OOS only)",,,,,,,,,,,,,,,,,,0.565,1.000,0.722,2/2,2.8

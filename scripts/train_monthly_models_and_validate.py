@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 Empirical Model Training, Evaluation, and Diebold-Mariano Validation
 ===================================================================
@@ -24,7 +25,7 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_PATH = os.path.join(BASE_DIR, "data", "processed", "monthly_macro_food_inflation_dataset.csv")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 os.makedirs(MODELS_DIR, exist_ok=True)
@@ -39,7 +40,7 @@ df['Date'] = pd.to_datetime(df['Date'])
 # Exclude non-feature columns
 non_features = ['Date', 'Target_Food_Inflation_t1', 'Target_Food_Inflation_t3', 
                 'Target_Food_Inflation_t6', 'Ground_Truth_Crisis']
-feature_cols = [c for c in df.columns if c not in non_features]
+feature_cols = [c for c in df.select_dtypes(include=[np.number]).columns if c not in non_features]
 
 print(f"Total Available Features: {len(feature_cols)}")
 print(f"Dataset Span: {df['Date'].min().strftime('%Y-%m')} to {df['Date'].max().strftime('%Y-%m')} ({len(df)} Months)")

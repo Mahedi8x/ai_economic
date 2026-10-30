@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 Daily Real-Time Macro Nowcasting & Commodity Spike Surveillance Pipeline
 ========================================================================
@@ -33,7 +34,7 @@ if sys.platform == "win32":
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if not os.path.exists(os.path.join(BASE_DIR, "models")):
-    BASE_DIR = BASE_DIR
+    BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Add scripts to path for importing spike engine
 SCRIPTS_DIR = os.path.join(BASE_DIR, "scripts")

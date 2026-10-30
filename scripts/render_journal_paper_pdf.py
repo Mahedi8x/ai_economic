@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 Render full academic paper manuscript to publication-grade PDF using headless Microsoft Edge.
 Produces an IEEE/Elsevier-standard academic layout.
@@ -6,7 +7,7 @@ import os
 import subprocess
 import markdown
 
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent.parent
 MD_PATH = os.path.join(BASE_DIR, "PAPER_MANUSCRIPT.md")
 HTML_PATH = os.path.join(BASE_DIR, "Bangladesh_Economic_AI_Research_Paper.html")
 PDF_PATH = os.path.join(BASE_DIR, "Bangladesh_Economic_AI_Research_Paper.pdf")

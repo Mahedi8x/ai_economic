@@ -1,5 +1,5 @@
 Episode,Short,Type,Status,Crisis_Start,First_Alert_Date,Lead_Time_Days,Lead_Time_Months
-2011-12 Capital Market Crash & BDT Liquidity Squeeze,2011-12 Crash,In-Sample Historical Control,DETECTED,2011-11-01,2011-08-28,65,2.2
+2011-12 Capital Market Crash & BDT Liquidity Squeeze,2011-12 Crash,In-Sample Historical Control,DETECTED,2011-11-01,2011-08-29,64,2.1
 2020 COVID-19 Global Supply Chain & Trade Freeze,COVID-19 Freeze,In-Sample Historical Control,MISSED,2020-03-15,None,0,0.0
-2022-23 Russia-Ukraine Commodity & Forex Reserve Drain,Ukraine FX Drain,Out-of-Sample Test Regime,DETECTED,2022-04-15,2022-01-19,86,2.9
-2024 Political Disruption & Peak Food Inflation,2024 Peak Shock,Out-of-Sample Test Regime,DETECTED,2024-06-25,2024-04-26,60,2.0
+2022-23 Russia-Ukraine Commodity & Forex Reserve Drain,Ukraine FX Drain,Out-of-Sample Test Regime,DETECTED,2022-04-15,2022-01-25,80,2.7
+2024 Political Disruption & Peak Food Inflation,2024 Peak Shock,Out-of-Sample Test Regime,DETECTED,2024-06-25,2024-03-27,90,3.0

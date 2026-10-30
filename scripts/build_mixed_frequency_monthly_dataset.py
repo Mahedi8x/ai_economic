@@ -1,3 +1,4 @@
+from pathlib import Path
 """
 Build Mixed-Frequency Monthly Master Dataset
 ============================================
@@ -23,7 +24,7 @@ if sys.platform == "win32":
         pass
 
 # Base paths
-BASE_DIR = BASE_DIR
+BASE_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
 INTERIM_DIR = os.path.join(BASE_DIR, "data", "interim")
 PROCESSED_DIR = os.path.join(BASE_DIR, "data", "processed")
@@ -77,6 +78,9 @@ df_bb = pd.read_csv(bb_path)
 df_bb['Date'] = pd.to_datetime(df_bb['Date'])
 
 # Merge on Date (1st of each month)
+bb_cols = ['Date', 'Headline_Inflation_pct', 'Food_Inflation_pct', 'USD_BDT_Exchange_Rate', 
+           'Foreign_Reserves_USD_Bn', 'Remittance_USD_Bn']
+df_bb = df_bb[[c for c in bb_cols if c in df_bb.columns]]
 df_merged = pd.merge(df_market_monthly, df_bb, on='Date', how='inner')
 print(f"[2/4] Merged with official BBS & BB monthly series: {len(df_merged)} months.")
 

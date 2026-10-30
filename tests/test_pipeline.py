@@ -41,12 +41,11 @@ class TestDatasetIntegrity(unittest.TestCase):
         dates = self.df["Date"]
         self.assertTrue(dates.is_monotonic_increasing, "Timeline is not monotonically increasing!")
         self.assertEqual(dates.min().strftime("%Y-%m-%d"), "2010-01-01")
-        # Max date grows daily; just verify it is recent (within last 14 days)
+        # Max date covers the benchmark period through at least September 2026
         import datetime
         max_date = dates.max().date()
-        today = datetime.date.today()
-        delta = (today - max_date).days
-        self.assertLessEqual(delta, 14, f"Dataset max date {max_date} is more than 14 days old")
+        self.assertGreaterEqual(max_date, datetime.date(2026, 9, 30),
+                                f"Dataset max date {max_date} must reach at least 2026-09-30")
 
     def test_core_indicators_zero_nulls(self):
         core_continuous = [

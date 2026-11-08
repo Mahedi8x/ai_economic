@@ -1,8 +1,8 @@
 {
-    "as_of_date": "2026-11-07",
-    "execution_timestamp": "2026-11-07 18:26:36",
+    "as_of_date": "2026-11-08",
+    "execution_timestamp": "2026-11-08 18:37:08",
     "market_inputs": {
-        "usd_bdt_rate": 124.81,
+        "usd_bdt_rate": 124.32,
         "brent_crude_usd": NaN,
         "wheat_usd": NaN,
         "dxy": NaN

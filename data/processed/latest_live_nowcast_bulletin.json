@@ -1,11 +1,11 @@
 {
-    "as_of_date": "2026-11-11",
-    "execution_timestamp": "2026-11-11 21:01:16",
+    "as_of_date": "2026-11-12",
+    "execution_timestamp": "2026-11-12 21:16:40",
     "market_inputs": {
-        "usd_bdt_rate": 124.33,
-        "brent_crude_usd": 92.5,
-        "wheat_usd": 600.75,
-        "dxy": 102.91
+        "usd_bdt_rate": 124.56,
+        "brent_crude_usd": 96.22,
+        "wheat_usd": 582.5,
+        "dxy": 103.17
     },
     "official_anchor": {
         "latest_official_food_cpi": 7.22,
@@ -14,8 +14,8 @@
     },
     "macro_nowcasts": {
         "food_inflation_1m_estimate": 7.43,
-        "food_inflation_3m_estimate": 7.91,
-        "food_inflation_6m_estimate": 9.54,
+        "food_inflation_3m_estimate": 7.86,
+        "food_inflation_6m_estimate": 9.44,
         "crisis_probability_pct": 55.9,
         "risk_status": "CRISIS ALERT / HIGH STRESS",
         "risk_color": "RED"

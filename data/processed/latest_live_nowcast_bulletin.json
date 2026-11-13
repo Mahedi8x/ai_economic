@@ -1,11 +1,11 @@
 {
-    "as_of_date": "2026-11-12",
-    "execution_timestamp": "2026-11-12 21:16:40",
+    "as_of_date": "2026-11-13",
+    "execution_timestamp": "2026-11-13 20:44:14",
     "market_inputs": {
         "usd_bdt_rate": 124.56,
-        "brent_crude_usd": 96.22,
-        "wheat_usd": 582.5,
-        "dxy": 103.17
+        "brent_crude_usd": 95.98,
+        "wheat_usd": 593.5,
+        "dxy": 103.4
     },
     "official_anchor": {
         "latest_official_food_cpi": 7.22,
@@ -77,10 +77,10 @@
             "unit": "BDT/liter",
             "current_price": 189.2,
             "price_data_source": "Live User Input",
-            "predicted_delta_30d": -7.02,
-            "point_forecast_30d": 182.18,
-            "interval_80_lower": 175.95,
-            "interval_80_upper": 188.4,
+            "predicted_delta_30d": -9.71,
+            "point_forecast_30d": 179.49,
+            "interval_80_lower": 173.27,
+            "interval_80_upper": 185.72,
             "conformal_interval_radius_bdt": 6.22,
             "oos_evaluated_days": 906,
             "oos_realized_coverage_pct": 44.8,

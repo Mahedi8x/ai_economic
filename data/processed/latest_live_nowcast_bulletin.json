@@ -1,11 +1,11 @@
 {
-    "as_of_date": "2026-11-18",
-    "execution_timestamp": "2026-11-18 21:41:26",
+    "as_of_date": "2026-11-19",
+    "execution_timestamp": "2026-11-19 21:57:04",
     "market_inputs": {
         "usd_bdt_rate": 124.45,
-        "brent_crude_usd": 88.94,
-        "wheat_usd": 586.75,
-        "dxy": 103.81
+        "brent_crude_usd": 90.03,
+        "wheat_usd": 595.25,
+        "dxy": 103.94
     },
     "official_anchor": {
         "latest_official_food_cpi": 7.22,

@@ -1,11 +1,11 @@
 {
-    "as_of_date": "2026-11-24",
-    "execution_timestamp": "2026-11-24 23:21:52",
+    "as_of_date": "2026-11-25",
+    "execution_timestamp": "2026-11-25 22:53:56",
     "market_inputs": {
-        "usd_bdt_rate": 124.48,
-        "brent_crude_usd": 88.39,
-        "wheat_usd": 588.75,
-        "dxy": 103.85
+        "usd_bdt_rate": NaN,
+        "brent_crude_usd": 90.82,
+        "wheat_usd": 586.5,
+        "dxy": 103.69
     },
     "official_anchor": {
         "latest_official_food_cpi": 7.22,
@@ -13,10 +13,10 @@
         "source": "Bangladesh Bureau of Statistics (BBS)"
     },
     "macro_nowcasts": {
-        "food_inflation_1m_estimate": 7.43,
-        "food_inflation_3m_estimate": 7.86,
-        "food_inflation_6m_estimate": 9.58,
-        "crisis_probability_pct": 55.9,
+        "food_inflation_1m_estimate": 7.41,
+        "food_inflation_3m_estimate": 7.81,
+        "food_inflation_6m_estimate": 8.68,
+        "crisis_probability_pct": 48.3,
         "risk_status": "CRISIS ALERT / HIGH STRESS",
         "risk_color": "RED"
     },

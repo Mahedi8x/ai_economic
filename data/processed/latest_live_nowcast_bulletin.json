@@ -1,11 +1,11 @@
 {
-    "as_of_date": "2026-11-25",
-    "execution_timestamp": "2026-11-25 22:53:56",
+    "as_of_date": "2026-11-26",
+    "execution_timestamp": "2026-11-26 22:44:44",
     "market_inputs": {
-        "usd_bdt_rate": NaN,
-        "brent_crude_usd": 90.82,
-        "wheat_usd": 586.5,
-        "dxy": 103.69
+        "usd_bdt_rate": 124.48,
+        "brent_crude_usd": 91.73,
+        "wheat_usd": NaN,
+        "dxy": 103.78
     },
     "official_anchor": {
         "latest_official_food_cpi": 7.22,
@@ -13,10 +13,10 @@
         "source": "Bangladesh Bureau of Statistics (BBS)"
     },
     "macro_nowcasts": {
-        "food_inflation_1m_estimate": 7.41,
-        "food_inflation_3m_estimate": 7.81,
-        "food_inflation_6m_estimate": 8.68,
-        "crisis_probability_pct": 48.3,
+        "food_inflation_1m_estimate": 7.42,
+        "food_inflation_3m_estimate": 7.82,
+        "food_inflation_6m_estimate": 9.6,
+        "crisis_probability_pct": 56.8,
         "risk_status": "CRISIS ALERT / HIGH STRESS",
         "risk_color": "RED"
     },
@@ -60,15 +60,15 @@
             "unit": "BDT/kg",
             "current_price": 55.8,
             "price_data_source": "Live User Input",
-            "predicted_delta_30d": 3.39,
-            "point_forecast_30d": 59.19,
-            "interval_80_lower": 55.67,
-            "interval_80_upper": 62.71,
+            "predicted_delta_30d": 2.93,
+            "point_forecast_30d": 58.73,
+            "interval_80_lower": 55.21,
+            "interval_80_upper": 62.25,
             "conformal_interval_radius_bdt": 3.52,
             "oos_evaluated_days": 1366,
             "oos_realized_coverage_pct": 75.1,
             "spike_threshold_pct": 5.0,
-            "spike_probability_pct": 63.7,
+            "spike_probability_pct": 53.1,
             "spike_risk_level": "HIGH SPIKE RISK",
             "pass_through_30d_usd": 0.851
         },
